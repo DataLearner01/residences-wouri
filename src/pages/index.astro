@@ -1,7 +1,7 @@
 ---
 // La racine du site renvoie vers la langue par défaut.
 // Les fichiers public/_redirects et vercel.json font la même chose côté serveur.
-import { defaultLang, href } from '../i18n';
+import { defaultLang, href, withBase } from '../i18n';
 import { site } from '../config/site';
 
 const target = href(defaultLang, 'home');
@@ -14,7 +14,7 @@ const target = href(defaultLang, 'home');
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{site.name}</title>
     <meta name="robots" content="noindex" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
     <link rel="canonical" href={new URL(target, Astro.site).href} />
     <meta http-equiv="refresh" content={`0; url=${target}`} />
   </head>

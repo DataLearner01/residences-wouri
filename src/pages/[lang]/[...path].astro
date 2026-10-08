@@ -3,7 +3,7 @@
 // Les adresses viennent de la table `routes` de src/i18n/index.ts.
 import type { GetStaticPaths } from 'astro';
 import { getArticles, getProgrammes } from '../../lib/content';
-import { href, langs, routes, type Lang, type RouteKey } from '../../i18n';
+import { base, href, langs, routes, type Lang, type RouteKey } from '../../i18n';
 import Home from '../../views/Home.astro';
 import Programmes from '../../views/Programmes.astro';
 import Programme from '../../views/Programme.astro';
@@ -25,7 +25,7 @@ type PageProps = {
 export const getStaticPaths = (async () => {
   const pages: { params: { lang: Lang; path: string | undefined }; props: PageProps }[] = [];
   const add = (lang: Lang, view: PageProps['view'], alternates: Record<Lang, string>, slug?: string) => {
-    const path = alternates[lang].replace(`/${lang}/`, '').replace(/\/$/, '') || undefined;
+    const path = alternates[lang].slice(base.length).replace(`/${lang}/`, '').replace(/\/$/, '') || undefined;
     pages.push({ params: { lang, path }, props: { view, lang, alternates, slug } });
   };
 

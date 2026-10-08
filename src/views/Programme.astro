@@ -10,7 +10,7 @@ import StatusBadge from '../components/StatusBadge.astro';
 import UnitsTable from '../components/UnitsTable.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { site } from '../config/site';
-import { fill, href, tr, useT, type Lang } from '../i18n';
+import { fill, href, tr, useT, withBase, type Lang } from '../i18n';
 import { eur, fcfa, mapsUrl } from '../lib/format';
 import { getProgrammes } from '../lib/content';
 import { photo } from '../lib/photos';
@@ -245,7 +245,7 @@ const h2 = 'h-sub mb-6';
         <h2 class={h2}>{t.programme.documents}</h2>
         <div class="grid gap-4">
           <a
-            href={`/brochures/${p.brochure}`}
+            href={withBase(`/brochures/${p.brochure}`)}
             download
             class="group flex items-center gap-4 border border-brume-300 bg-white p-5 hover:border-encre"
           >

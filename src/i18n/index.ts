@@ -68,9 +68,14 @@ export const routes = {
 } as const;
 export type RouteKey = keyof typeof routes;
 
+/** Dossier d'où le site est servi ('' à la racine, '/residences-wouri' sur GitHub Pages). */
+export const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+/** Ajoute ce dossier à un chemin absolu depuis la racine du site : withBase('/favicon.svg'). */
+export const withBase = (path: string) => base + path;
+
 /** Chemin d'une page : href('en', 'programmes', 'domaine-du-littoral'). */
 export function href(lang: Lang, key: RouteKey, slug?: string) {
-  return '/' + [lang, routes[key][lang], slug].filter(Boolean).join('/') + '/';
+  return base + '/' + [lang, routes[key][lang], slug].filter(Boolean).join('/') + '/';
 }
 
 export const locales: Record<Lang, string> = { fr: 'fr-FR', en: 'en-GB' };

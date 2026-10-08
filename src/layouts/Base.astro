@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import { site } from '../config/site';
-import { href, langs, ogLocales, useT, type Lang, type RouteKey } from '../i18n';
+import { href, langs, ogLocales, useT, withBase, type Lang, type RouteKey } from '../i18n';
 import fontUrl from '../assets/fonts/host-grotesk-latin-wght-normal.woff2?url';
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
   /** Message WhatsApp pré-rempli, propre à la page. */
   waMessage: string;
   current?: RouteKey;
-  /** Image de partage : chemin absolu depuis la racine du site. */
+  /** Image de partage : chemin absolu depuis la racine du site (déjà préfixé par le dossier de base). */
   image?: string;
   /** Données structurées schema.org propres à la page. */
   schema?: Record<string, unknown>[];
@@ -30,7 +30,7 @@ const {
   alternates,
   waMessage,
   current,
-  image = '/og-default.jpg',
+  image = withBase('/og-default.jpg'),
   schema = [],
   noindex = false,
 } = Astro.props;
@@ -42,14 +42,14 @@ const canonical = abs(alternates[lang]);
 const organisation = {
   '@context': 'https://schema.org',
   '@type': 'RealEstateAgent',
-  '@id': abs('/#organisation'),
+  '@id': abs(withBase('/#organisation')),
   name: site.name,
   legalName: site.legalName,
   slogan: t.common.baseline,
   description: t.home.metaDescription,
   url: abs(href(lang, 'home')),
-  logo: abs('/favicon.svg'),
-  image: abs('/og-default.jpg'),
+  logo: abs(withBase('/favicon.svg')),
+  image: abs(withBase('/og-default.jpg')),
   telephone: `+${site.whatsapp.number}`,
   email: site.email,
   foundingDate: String(site.foundedYear),
@@ -95,7 +95,7 @@ const jsonLd = (data: unknown) => JSON.stringify(data).replace(/</g, '\\u003c');
     <meta name="twitter:card" content="summary_large_image" />
 
     <meta name="theme-color" content="#ffffff" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
     <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin />
 
     <script is:inline>
