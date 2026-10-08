@@ -1,0 +1,8 @@
+# Configuration pour Netlify (Cloudflare Pages utilise les mêmes commandes, saisies dans son tableau de bord).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PUPPETEER_SKIP_DOWNLOAD = "true"
