@@ -1,0 +1,443 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import Icon from '../components/Icon.astro';
+import ProgrammeCard from '../components/ProgrammeCard.astro';
+import SectionHead from '../components/SectionHead.astro';
+import SiteProgress from '../components/SiteProgress.astro';
+import Tone from '../components/Tone.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { site } from '../config/site';
+import { href, useT, type Lang } from '../i18n';
+import { quote } from '../lib/format';
+import { getProgrammes } from '../lib/content';
+import realisations from '../content/realisations.json';
+
+interface Props {
+  lang: Lang;
+  alternates: Record<Lang, string>;
+}
+
+const { lang, alternates } = Astro.props;
+const t = useT(lang);
+const programmes = await getProgrammes();
+const featured = programmes.filter((p) => p.aLaUne).slice(0, 3);
+const sites = programmes.filter((p) => p.chantier).slice(0, 2);
+const quotes = realisations.filter((r) => r.temoignage?.accueil).slice(0, 2);
+// Le titre se coupe après la virgule : « Bâtir à Douala, » puis « livrer avec confiance. »
+const headline = t.common.baseline.split(', ');
+const stats = [
+  [site.stats.years, t.home.stats.years],
+  [site.stats.delivered, t.home.stats.delivered],
+  [site.stats.families, t.home.stats.families],
+  [site.stats.sites, t.home.stats.sites],
+] as const;
+// Les trois arches du bandeau sombre : la façade, le chantier, l'intérieur.
+const arcade = [
+  'photo-a-remplacer-palmiers-facade.jpg',
+  'photo-a-remplacer-chantier-palmiers-2026-09.jpg',
+  'photo-a-remplacer-palmiers-sejour.jpg',
+];
+---
+
+<Base
+  lang={lang}
+  title={t.home.metaTitle}
+  description={t.home.metaDescription}
+  alternates={alternates}
+  waMessage={t.wa.msg.home}
+  current="home"
+>
+  {/* Le ciel, les nuages et l'immeuble sont trois plans : ils glissent légèrement avec la souris. */}
+  <section class="hero relative isolate flex min-h-svh flex-col overflow-hidden" data-pointeur="0.06">
+    <div class="plan plan-fond" aria-hidden="true">
+      <Img
+        src="accueil-nuages-fond.webp"
+        alt=""
+        alpha
+        eager
+        widths={[640, 1100, 1800]}
+        sizes="(min-width: 64rem) 110vw, 64rem"
+        class="h-full w-full object-cover object-bottom"
+      />
+    </div>
+
+    <div class="container-page relative z-10 pt-[clamp(6.75rem,13svh,9rem)] text-center">
+      <h1 class="h-display">
+        <span class="ligne">{headline[0]},</span>
+        <span class="ligne">{headline.slice(1).join(', ')}</span>
+      </h1>
+      <p class="lead accroche mx-auto mt-5 max-w-[38rem] md:mt-6"><Tone text={t.home.heroText} soft /></p>
+      <div class="accroche mt-7 flex flex-col items-center justify-center gap-3 xs:flex-row" data-wa-hero>
+        <a href={href(lang, 'programmes')} class="btn btn-primary" data-aimant>
+          {t.home.heroCta}
+          <Icon name="arrow-right" size={18} class="fleche" />
+        </a>
+        <WhatsAppButton message={t.wa.msg.home} label={t.wa.write} class="lg:hidden" />
+      </div>
+    </div>
+
+    <div class="scene relative mt-6 flex-1">
+      <div class="plan plan-immeuble">
+        <Img
+          src="photo-a-remplacer-accueil-immeuble.webp"
+          alt={t.home.heroAlt}
+          alpha
+          eager
+          widths={[640, 960, 1400, 1800]}
+          sizes="(min-width: 64rem) 68rem, 150vw"
+          class="monte -mt-[6%] h-auto w-full"
+        />
+      </div>
+      <div class="plan plan-avant" aria-hidden="true">
+        <Img
+          src="accueil-nuages-avant.webp"
+          alt=""
+          alpha
+          eager
+          widths={[640, 1100, 1800]}
+          sizes="(min-width: 64rem) 116vw, 70rem"
+          class="h-auto w-full"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section aria-label={t.home.statsLabel} class="container-page pt-12 md:pt-16">
+    <p class="titre max-w-5xl text-[clamp(1.6rem,3.5vw,3rem)] leading-[1.12]">
+      {
+        stats.map(([value, label]) => (
+          <>
+            {value} <span class="ton-clair">{label}.</span>{' '}
+          </>
+        ))
+      }
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="container-page">
+      <SectionHead title={t.home.featuredTitle} text={t.home.featuredText}>
+        <a href={href(lang, 'programmes')} class="btn btn-outline mt-7">
+          {t.common.allProgrammes}
+          <Icon name="arrow-right" size={18} class="fleche" />
+        </a>
+      </SectionHead>
+      <div class="mt-14 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+        {featured.map((p) => <ProgrammeCard lang={lang} programme={p} />)}
+      </div>
+    </div>
+  </section>
+
+  {/* Bandeau sombre : la lueur suit la souris et révèle l'arcade en filigrane. */}
+  <section class="bande-nuit section" data-pointeur="0.12" data-pointeur-saut>
+    <div class="container-page grid items-end gap-14 lg:grid-cols-2 lg:gap-20">
+      <div>
+        <h2 class="h-section"><Tone text={t.home.manifestoTitle} /></h2>
+        <p class="lead mt-8 max-w-xl"><Tone text={t.home.manifestoText} soft /></p>
+        <a href={href(lang, 'about')} class="btn btn-light mt-9">
+          {t.home.manifestoLink}
+          <Icon name="arrow-right" size={18} class="fleche" />
+        </a>
+      </div>
+      <div class="arcade grid grid-cols-3 items-end gap-3 md:gap-5" aria-hidden="true">
+        {
+          arcade.map((src, i) => (
+            <div class:list={['arche bg-white/5', i === 1 ? 'aspect-[3/6]' : 'aspect-[3/5]']} style={`--sens:${i - 1}`}>
+              <Img src={src} alt="" widths={[400, 640, 960]} sizes="(min-width: 64rem) 40vw, 90vw" class="h-full w-full object-cover" />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page">
+      <SectionHead title={t.home.whyTitle} text={t.home.whyText} />
+      {/* Volets : sur ordinateur, celui que l'on survole s'ouvre et laisse lire son texte. */}
+      <ul class="volets mt-12 md:mt-14" data-pointeur="0.08">
+        {
+          t.home.why.map((item) => (
+            <li class="volet" tabindex="0">
+              <Img
+                src={item.image}
+                alt=""
+                widths={[400, 640, 960]}
+                sizes="(min-width: 64rem) 46vw, 92vw"
+                class="volet-image"
+              />
+              <div class="volet-texte">
+                <h3 class="h-card">{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section bg-brume">
+    <div class="container-page">
+      <SectionHead title={t.home.progressTitle} text={t.home.progressText}>
+        <a href={href(lang, 'avancement')} class="btn btn-outline mt-7">
+          {t.home.progressLink}
+          <Icon name="arrow-right" size={18} class="fleche" />
+        </a>
+      </SectionHead>
+      <div class="mt-14 grid gap-5 md:grid-cols-2">
+        {
+          sites.map((p) => (
+            <article class="bg-white p-7 md:p-10">
+              <h3 class="h-card">
+                <a
+                  href={`${href(lang, 'avancement')}#${p.slug}`}
+                  class="underline decoration-transparent decoration-1 underline-offset-4 transition-colors hover:decoration-current"
+                >
+                  {p.nom}
+                </a><span class="ton-doux">, {p.quartier}</span>
+              </h3>
+              <div class="mt-10">
+                <SiteProgress lang={lang} chantier={p.chantier!} label={p.nom} />
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page">
+      <div class="flex items-start justify-between gap-6">
+        <h2 class="h-section max-w-[12ch]"><Tone text={t.home.testimonialsTitle} /></h2>
+        <Icon name="quote" size={72} class="hidden shrink-0 text-brume-300 sm:block" />
+      </div>
+      <div class="mt-12 grid gap-5 md:grid-cols-2">
+        {
+          quotes.map((r) => (
+            <figure class="flex flex-col bg-brume p-7 md:p-10">
+              <figcaption class="flex items-center justify-between gap-4 text-[0.95rem]">
+                <span>
+                  <span class="font-medium">{r.temoignage!.prenom}</span>
+                  <span class="text-encre-600">, {r.quartier}</span>
+                </span>
+                <Icon name="quote" size={22} />
+              </figcaption>
+              <blockquote class="titre mt-10 text-[1.35rem] leading-snug md:mt-16 md:text-[1.6rem]">
+                {quote(r.temoignage![lang], lang)}
+              </blockquote>
+            </figure>
+          ))
+        }
+      </div>
+      <p class="mt-6 text-sm text-encre-600">{t.home.testimonialsNote}</p>
+    </div>
+  </section>
+
+  <section class="ciel">
+    <div class="container-page section text-center">
+      <h2 class="h-page mx-auto max-w-4xl"><Tone text={t.home.ctaTitle} /></h2>
+      <p class="lead mx-auto mt-6 max-w-xl">{t.home.ctaText}</p>
+      <div class="mt-9 flex flex-col items-center justify-center gap-3 xs:flex-row">
+        <a href={`${href(lang, 'contact')}?visite=1`} class="btn btn-primary" data-aimant>{t.common.visit}</a>
+        <WhatsAppButton message={t.wa.msg.home} label={t.wa.write} />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Ciel de l'accueil : bleu en haut, lueur d'aube en bas à gauche, puis il se fond dans la page. */
+  .hero {
+    background:
+      radial-gradient(95% 70% at 0% 100%, #f1b785 0%, rgb(245 201 161 / 0.55) 34%, rgb(245 201 161 / 0) 66%),
+      radial-gradient(70% 48% at 100% 96%, #f8dcc3 0%, rgb(248 220 195 / 0) 64%),
+      linear-gradient(180deg, var(--color-ciel) 0%, #aac6ea 42%, #c9dbf0 74%, #e9eef3 100%);
+  }
+  .hero :global(.ton-doux),
+  .ciel :global(.ton-clair) {
+    color: rgb(21 24 26 / 0.66);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 11%;
+    background: linear-gradient(to top, #fff 12%, rgb(255 255 255 / 0));
+    pointer-events: none;
+  }
+  .ligne {
+    display: block;
+  }
+
+  /* Chaque plan se déplace d'une distance différente : le plus proche bouge le plus. */
+  .plan {
+    position: absolute;
+    pointer-events: none;
+    transform: translate3d(calc(var(--dx, 0) * var(--course)), calc(var(--dy, 0) * var(--course) * 0.6), 0);
+  }
+  .plan-fond {
+    --course: -10px;
+    inset: 20% -3% 0;
+    z-index: -1;
+    opacity: 0.7;
+  }
+  .plan-immeuble {
+    --course: -20px;
+    left: 50%;
+    top: 0;
+    width: min(68rem, 150%);
+    margin-left: calc(min(68rem, 150%) / -2);
+  }
+  /* La mer de nuages garde une largeur minimale : sur mobile, elle déborde de chaque côté. */
+  .plan-avant {
+    --course: -38px;
+    --largeur: max(118%, 64rem);
+    left: 50%;
+    bottom: -14%;
+    width: var(--largeur);
+    margin-left: calc(var(--largeur) / -2);
+  }
+  .scene {
+    min-height: clamp(17rem, 46svh, 31rem);
+  }
+  .plan :global(picture) {
+    display: block;
+    height: 100%;
+  }
+
+  /* Seul moment animé de la page, joué une fois à l'ouverture (ordinateur seulement). */
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .ligne,
+    .accroche {
+      animation: apparait 0.9s var(--ease-out-doux) both;
+    }
+    .ligne + .ligne {
+      animation-delay: 0.08s;
+    }
+    .accroche {
+      animation-delay: 0.2s;
+    }
+    .plan-immeuble :global(.monte) {
+      animation: monte 1.5s var(--ease-out-doux) both;
+    }
+  }
+  @keyframes apparait {
+    from {
+      opacity: 0;
+      transform: translateY(0.35em);
+    }
+  }
+  @keyframes monte {
+    from {
+      opacity: 0;
+      transform: translateY(9%);
+    }
+  }
+
+  /* Arcade du bandeau sombre : chaque photo dérive dans son arche avec la souris. */
+  .arcade :global(img) {
+    transform: scale(1.12)
+      translate3d(calc(var(--dx, 0) * -2% + var(--sens) * var(--dx, 0) * -0.8%), calc(var(--dy, 0) * -2.4%), 0);
+  }
+
+  /* Volets des engagements. */
+  .volets {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .volet {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    min-height: 15rem;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--color-encre);
+    color: #fff;
+  }
+  .volet :global(picture) {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+  .volet :global(.volet-image) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .volet::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to top, rgb(15 17 18 / 0.88) 0%, rgb(15 17 18 / 0.45) 42%, rgb(15 17 18 / 0.08) 78%);
+  }
+  .volet-texte {
+    padding: 1.5rem;
+  }
+  .volet-texte p {
+    margin-top: 0.6rem;
+    max-width: 26rem;
+    color: rgb(255 255 255 / 0.86);
+  }
+  .volet:focus-visible {
+    outline-offset: -4px;
+    outline-color: #fff;
+  }
+
+  @media (min-width: 64rem) {
+    .volets {
+      display: flex;
+      gap: 0;
+      height: clamp(26rem, 38vw, 34rem);
+    }
+    .volet {
+      flex: 1 1 0;
+      min-width: 0;
+      min-height: 0;
+      transition: flex-grow 0.7s var(--ease-out-doux);
+    }
+    .volet-texte {
+      width: 100%;
+      padding: 1.75rem;
+    }
+    .volet-texte h3 {
+      max-width: 11rem;
+    }
+    /* Le texte garde une largeur fixe : il ne se recompose pas pendant l'ouverture du volet. */
+    .volet-texte p {
+      width: 24rem;
+      max-width: none;
+      height: 0;
+      margin-top: 0;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .volet:hover,
+    .volet:focus-visible,
+    .volets:not(:hover, :focus-within) .volet:first-child {
+      flex-grow: 2.6;
+    }
+    .volet:hover .volet-texte p,
+    .volet:focus-visible .volet-texte p,
+    .volets:not(:hover, :focus-within) .volet:first-child .volet-texte p {
+      height: auto;
+      margin-top: 0.6rem;
+      opacity: 1;
+      transition: opacity 0.5s 0.25s;
+    }
+    .volet :global(.volet-image) {
+      transform: scale(1.08) translate3d(calc(var(--dx, 0) * -1.6%), calc(var(--dy, 0) * -1.6%), 0);
+    }
+  }
+
+  /* Bandeau de fin : le ciel de l'accueil, sans l'immeuble. */
+  .ciel {
+    background:
+      radial-gradient(90% 80% at 0% 100%, var(--color-aube) 0%, rgb(245 201 161 / 0) 60%),
+      linear-gradient(180deg, #fff 0%, #dbe7f3 38%, #b9d0ec 100%);
+  }
+</style>

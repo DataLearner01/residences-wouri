@@ -1,0 +1,27 @@
+---
+// Jeu d'icônes unique : Lucide (https://lucide.dev), intégré en SVG au moment du build.
+import lucide from '@iconify-json/lucide/icons.json';
+
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 20, class: className } = Astro.props;
+const icons = lucide.icons as Record<string, { body: string }>;
+const aliases = ((lucide as { aliases?: unknown }).aliases ?? {}) as Record<string, { parent: string }>;
+const icon = icons[name] ?? icons[aliases[name]?.parent];
+if (!icon) throw new Error(`Icône Lucide introuvable : « ${name} »`);
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  class:list={['shrink-0', className]}
+  aria-hidden="true"
+  focusable="false"
+  set:html={icon.body}
+/>

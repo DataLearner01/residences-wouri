@@ -1,0 +1,126 @@
+---
+// Galerie à balayage tactile : défilement horizontal natif (scroll-snap), sans bibliothèque.
+import Img from './Img.astro';
+import Icon from './Icon.astro';
+import { useT, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  label: string;
+  images: { fichier: string; alt: string }[];
+}
+
+const { lang, label, images } = Astro.props;
+const t = useT(lang);
+---
+
+<div data-gallery>
+  <div class="gallery-track" data-track tabindex="0" role="region" aria-label={label}>
+    {
+      images.map((image, i) => (
+        <figure class="gallery-slide" data-slide>
+          <Img
+            src={image.fichier}
+            alt={image.alt}
+            widths={[480, 800, 1200, 1600]}
+            sizes="(min-width: 68rem) 60rem, 88vw"
+            eager={i === 0}
+            class="aspect-[3/2] h-auto w-full bg-brume-200 object-cover"
+          />
+        </figure>
+      ))
+    }
+  </div>
+  {
+    images.length > 1 && (
+      <div class="js-only mt-4 flex items-center justify-between">
+        <p class="text-sm font-semibold tabular-nums text-encre-600" aria-live="polite">
+          <span data-current>1</span> / {images.length}
+        </p>
+        <div class="flex gap-2">
+          <button type="button" class="gallery-btn" data-prev aria-label={t.programme.prev}>
+            <Icon name="arrow-left" size={22} />
+          </button>
+          <button type="button" class="gallery-btn" data-next aria-label={t.programme.next}>
+            <Icon name="arrow-right" size={22} />
+          </button>
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .gallery-track {
+    position: relative;
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gallery-track::-webkit-scrollbar {
+    display: none;
+  }
+  .gallery-slide {
+    flex: 0 0 min(88%, 60rem);
+    scroll-snap-align: start;
+  }
+  .gallery-btn {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: 1.5px solid var(--color-encre);
+    border-radius: 999px;
+    color: var(--color-encre);
+  }
+  .gallery-btn:hover:not(:disabled) {
+    background: var(--color-encre);
+    color: #fff;
+  }
+  .gallery-btn:disabled {
+    opacity: 0.35;
+  }
+</style>
+
+<script>
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
+    const track = gallery.querySelector<HTMLElement>('[data-track]');
+    const slides = Array.from(gallery.querySelectorAll<HTMLElement>('[data-slide]'));
+    const prev = gallery.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = gallery.querySelector<HTMLButtonElement>('[data-next]');
+    const current = gallery.querySelector<HTMLElement>('[data-current]');
+    if (!track || !prev || !next || !current) return;
+
+    let index = 0;
+    const go = (target: number) => {
+      index = Math.max(0, Math.min(slides.length - 1, target));
+      track.scrollTo({ left: slides[index].offsetLeft, behavior: calm ? 'auto' : 'smooth' });
+    };
+    const update = () => {
+      let nearest = 0;
+      let distance = Infinity;
+      slides.forEach((slide, i) => {
+        const d = Math.abs(slide.offsetLeft - track.scrollLeft);
+        if (d < distance) {
+          distance = d;
+          nearest = i;
+        }
+      });
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) nearest = slides.length - 1;
+      index = nearest;
+      current.textContent = String(index + 1);
+      prev.disabled = index === 0;
+      next.disabled = index === slides.length - 1;
+    };
+
+    prev.addEventListener('click', () => go(index - 1));
+    next.addEventListener('click', () => go(index + 1));
+    track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    update();
+  });
+</script>

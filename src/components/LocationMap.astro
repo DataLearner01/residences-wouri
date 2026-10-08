@@ -1,0 +1,177 @@
+---
+// Carte de localisation : un plan schématique de Douala dessiné en SVG (image statique,
+// aucune carte interactive chargée). Le repère est placé depuis une latitude et une longitude.
+import { fill, useT, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  lat: number;
+  lng: number;
+  /** Texte affiché au-dessus du repère. */
+  label: string;
+  class?: string;
+}
+
+const { lang, lat, lng, label, class: className } = Astro.props;
+const t = useT(lang);
+
+const W = 400;
+const H = 300;
+// Projection simple de la zone de Douala vers le dessin.
+const px = (lon: number) => ((lon - 9.63) / 0.21) * W;
+const py = (la: number) => ((4.125 - la) / 0.158) * H;
+
+const places: { name: string; lat: number; lng: number; left?: boolean }[] = [
+  { name: 'Bonabéri', lat: 4.078, lng: 9.665, left: true },
+  { name: 'Deido', lat: 4.066, lng: 9.711 },
+  { name: 'Akwa', lat: 4.052, lng: 9.7 },
+  { name: 'Bonanjo', lat: 4.04, lng: 9.69 },
+  { name: 'Bonapriso', lat: 4.024, lng: 9.703 },
+  { name: lang === 'fr' ? 'Aéroport' : 'Airport', lat: 4.006, lng: 9.718 },
+  { name: 'Bonamoussadi', lat: 4.088, lng: 9.741 },
+  { name: 'Makepe', lat: 4.074, lng: 9.757 },
+  { name: 'Kotto', lat: 4.097, lng: 9.768 },
+  { name: 'Logbessou', lat: 4.105, lng: 9.795 },
+  { name: 'Ndokoti', lat: 4.047, lng: 9.742 },
+  { name: 'Yassa', lat: 4.012, lng: 9.8 },
+];
+
+const x = Math.min(W - 14, Math.max(14, px(lng)));
+const y = Math.min(H - 10, Math.max(40, py(lat)));
+const labelWidth = Math.min(W - 12, label.length * 6.1 + 18);
+const labelX = Math.min(W - labelWidth - 6, Math.max(6, x - labelWidth / 2));
+const labelY = y - 50;
+
+// Un nom de quartier qui passerait sous l'étiquette du repère n'est pas affiché.
+const hiddenByLabel = (place: (typeof places)[number]) => {
+  const textWidth = place.name.length * 5.8;
+  const left = place.left ? px(place.lng) - 6 - textWidth : px(place.lng) + 6;
+  const top = py(place.lat) - 6;
+  return left < labelX + labelWidth && left + textWidth > labelX && top < labelY + 22 && top + 12 > labelY - 2;
+};
+---
+
+<svg
+  viewBox={`0 0 ${W} ${H}`}
+  class:list={['location-map h-auto w-full', className]}
+  role="img"
+  aria-label={fill(t.common.mapAlt, { lieu: label })}
+>
+  <rect width={W} height={H} class="land"></rect>
+  <path
+    class="water"
+    d="M165 0 L158 50 L148 85 L140 108 L118 135 L98 160 L100 190 L112 215 L135 245 L150 300 L0 300 L0 172 L20 165 L55 150 L80 125 L95 95 L100 75 L112 45 L120 0 Z"
+  ></path>
+  <g class="roads">
+    <polyline points="114,161 133,139 154,112 211,70 263,53 314,38 400,22"></polyline>
+    <polyline points="133,139 213,148 270,180 324,215 400,236"></polyline>
+    <polyline points="114,161 139,192 168,226 210,262"></polyline>
+    <polyline points="213,148 242,97 211,70"></polyline>
+  </g>
+  <line x1="143" y1="104" x2="97" y2="92" class="bridge"></line>
+  <text x="34" y="238" class="river-name">Wouri</text>
+  <g class="places">
+    {
+      places.map((place) => (
+        <>
+          <circle cx={px(place.lng)} cy={py(place.lat)} r="2.6" />
+          {!hiddenByLabel(place) && (
+            <text
+              x={px(place.lng) + (place.left ? -6 : 6)}
+              y={py(place.lat)}
+              text-anchor={place.left ? 'end' : 'start'}
+              dominant-baseline="central"
+            >
+              {place.name}
+            </text>
+          )}
+        </>
+      ))
+    }
+  </g>
+  <g class="north">
+    <path d="M384 30 L384 12 M379 18 L384 11 L389 18"></path>
+    <text x="384" y="41" text-anchor="middle">N</text>
+  </g>
+  <g class="pin">
+    <rect x={labelX} y={labelY} width={labelWidth} height="20" rx="10"></rect>
+    <text x={labelX + labelWidth / 2} y={labelY + 10} text-anchor="middle" dominant-baseline="central">{label}</text>
+    <path d={`M${x} ${y} l-8 -13 a9.5 9.5 0 1 1 16 0 z`}></path>
+    <circle cx={x} cy={y - 18} r="3.6"></circle>
+  </g>
+</svg>
+
+<style>
+  .location-map {
+    font-family: var(--font-sans);
+    border: 1px solid var(--color-brume-300);
+  }
+  .land {
+    fill: var(--color-brume);
+  }
+  .water {
+    fill: #c9ded5;
+    stroke: #c9ded5;
+    stroke-width: 6;
+    stroke-linejoin: round;
+  }
+  .roads polyline {
+    fill: none;
+    stroke: var(--color-brume-300);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .bridge {
+    stroke: var(--color-encre-600);
+    stroke-width: 2.6;
+    stroke-linecap: round;
+  }
+  .river-name {
+    fill: var(--color-encre);
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 600;
+  }
+  .places circle {
+    fill: var(--color-encre-600);
+  }
+  .places text {
+    fill: var(--color-encre-600);
+    font-size: 10.5px;
+    font-weight: 600;
+    paint-order: stroke;
+    stroke: var(--color-brume);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+  }
+  .north path {
+    fill: none;
+    stroke: var(--color-encre-600);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .north text {
+    fill: var(--color-encre-600);
+    font-size: 9px;
+    font-weight: 800;
+  }
+  .pin rect {
+    fill: var(--color-encre);
+  }
+  .pin text {
+    fill: #fff;
+    font-size: 10.5px;
+    font-weight: 700;
+  }
+  .pin path {
+    fill: var(--color-encre);
+    stroke: #fff;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+  }
+  .pin circle {
+    fill: #fff;
+  }
+</style>

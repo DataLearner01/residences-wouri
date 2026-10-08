@@ -1,0 +1,53 @@
+---
+// Bouton WhatsApp flottant, affiché sur mobile et tablette (l'en-tête prend le relais sur grand écran).
+import BrandIcon from './BrandIcon.astro';
+import { useT, type Lang } from '../i18n';
+import { waLink } from '../lib/format';
+
+interface Props {
+  lang: Lang;
+  message: string;
+}
+
+const { lang, message } = Astro.props;
+---
+
+<a
+  href={waLink(message)}
+  target="_blank"
+  rel="noopener"
+  aria-label={useT(lang).wa.floating}
+  data-wa-float
+  class="wa-float fixed bottom-4 right-4 z-30 grid h-14 w-14 place-items-center rounded-full bg-whatsapp text-encre lg:hidden"
+>
+  <BrandIcon name="whatsapp" size={28} />
+</a>
+
+<style>
+  .wa-float {
+    box-shadow:
+      0 0 0 3px rgb(255 255 255 / 0.9),
+      0 8px 22px rgb(8 33 25 / 0.35);
+    transition:
+      opacity 0.2s,
+      transform 0.2s;
+  }
+  .wa-float.is-away {
+    opacity: 0;
+    transform: translateY(0.75rem);
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  // Tant qu'un bouton WhatsApp principal est à l'écran (héros de l'accueil),
+  // le bouton flottant s'efface pour ne pas faire doublon.
+  const float = document.querySelector<HTMLElement>('[data-wa-float]');
+  const hero = document.querySelector<HTMLElement>('[data-wa-hero]');
+  if (float && hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      float.classList.toggle('is-away', entry.isIntersecting);
+      float.tabIndex = entry.isIntersecting ? -1 : 0;
+    }).observe(hero);
+  }
+</script>

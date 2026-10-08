@@ -1,0 +1,40 @@
+---
+import Img from './Img.astro';
+import { fill, href, typo, useT, type Lang } from '../i18n';
+import { fullDate } from '../lib/format';
+import type { Article } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  article: Article;
+  heading?: 'h2' | 'h3';
+}
+
+const { lang, article, heading: Heading = 'h2' } = Astro.props;
+const t = useT(lang);
+---
+
+<article class="group relative flex flex-col">
+  <div class="overflow-hidden bg-brume-200">
+    <Img
+      src={article.data.image}
+      alt={article.data.imageAlt}
+      widths={[400, 640, 960]}
+      sizes="(min-width: 64rem) 30vw, (min-width: 40rem) 46vw, 92vw"
+      class="aspect-[3/2] h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+    />
+  </div>
+  <p class="mt-4 text-sm font-medium text-encre-600">
+    <time datetime={article.data.date.toISOString().slice(0, 10)}>{fullDate(article.data.date, lang)}</time>
+    <span class="ml-3">{fill(t.news.minutes, { n: article.minutes })}</span>
+  </p>
+  <Heading class="h-card mt-2">
+    <a
+      href={href(lang, 'news', article.slug)}
+      class="decoration-current decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:underline"
+    >
+      {typo(article.data.titre, lang)}
+    </a>
+  </Heading>
+  <p class="mt-2.5 text-encre-600">{typo(article.data.description, lang)}</p>
+</article>

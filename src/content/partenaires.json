@@ -1,0 +1,34 @@
+[
+  {
+    "icone": "scale",
+    "titre": { "fr": "Étude notariale", "en": "Notary’s office" },
+    "texte": {
+      "fr": "Rédige et authentifie chaque acte de vente.",
+      "en": "Drafts and authenticates every deed of sale."
+    }
+  },
+  {
+    "icone": "ruler",
+    "titre": { "fr": "Cabinet de géomètre-expert", "en": "Chartered surveyor" },
+    "texte": {
+      "fr": "Borne les terrains et établit les plans de morcellement.",
+      "en": "Marks out the land and draws up the subdivision plans."
+    }
+  },
+  {
+    "icone": "landmark",
+    "titre": { "fr": "Banque partenaire", "en": "Partner bank" },
+    "texte": {
+      "fr": "Étudie les demandes de crédit immobilier de nos acheteurs.",
+      "en": "Reviews mortgage applications from our buyers."
+    }
+  },
+  {
+    "icone": "hard-hat",
+    "titre": { "fr": "Bureau de contrôle technique", "en": "Technical inspection office" },
+    "texte": {
+      "fr": "Vérifie la structure et la sécurité de chaque bâtiment.",
+      "en": "Checks the structure and safety of every building."
+    }
+  }
+]

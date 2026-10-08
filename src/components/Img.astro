@@ -1,0 +1,47 @@
+---
+// Image responsive : AVIF + WebP + repli JPEG, srcset, chargement différé par défaut.
+import { Picture } from 'astro:assets';
+import { photo } from '../lib/photos';
+
+interface Props {
+  /** Nom d'un fichier de src/assets/photos. */
+  src: string;
+  alt: string;
+  widths?: number[];
+  sizes?: string;
+  class?: string;
+  pictureClass?: string;
+  /** À réserver à l'image principale visible dès l'ouverture de la page. */
+  eager?: boolean;
+  /** Image détourée (fond transparent) : AVIF, avec repli WebP au lieu du JPEG. */
+  alpha?: boolean;
+}
+
+const {
+  src,
+  alt,
+  widths = [400, 800, 1200],
+  sizes = '100vw',
+  class: className,
+  pictureClass,
+  eager = false,
+  alpha = false,
+} = Astro.props;
+
+const image = photo(src);
+const usable = widths.filter((w) => w <= image.width);
+---
+
+<Picture
+  src={image}
+  alt={alt}
+  formats={alpha ? ['avif'] : ['avif', 'webp']}
+  fallbackFormat={alpha ? 'webp' : undefined}
+  widths={usable.length ? usable : [image.width]}
+  sizes={sizes}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : undefined}
+  decoding={eager ? 'sync' : 'async'}
+  class={className}
+  pictureAttributes={{ class: pictureClass }}
+/>

@@ -1,0 +1,648 @@
+{
+  "nom": "Domaine du Littoral",
+  "ordre": 3,
+  "aLaUne": true,
+  "quartier": "Yassa",
+  "statut": "commercialisation",
+  "types": [
+    "terrain"
+  ],
+  "typologie": {
+    "fr": "Terrains viabilisés de 300 à 600 m²",
+    "en": "Serviced plots of 300 to 600 m²"
+  },
+  "accroche": {
+    "fr": "Quarante terrains titrés et bornés, prêts à bâtir, à l’est de Douala.",
+    "en": "Forty titled, surveyed plots, ready to build on, in the east of Douala."
+  },
+  "description": {
+    "fr": [
+      "Le Domaine du Littoral est un lotissement de 40 terrains à Yassa, un secteur en développement à l’entrée est de Douala.",
+      "Les voies sont bitumées. L’eau et l’électricité arrivent en limite de chaque lot. Chaque terrain est borné et reçoit un titre foncier individuel, issu du morcellement du titre mère.",
+      "Vous achetez votre terrain et vous construisez à votre rythme, avec l’architecte de votre choix. Un cahier des charges simple préserve l’harmonie du lotissement."
+    ],
+    "en": [
+      "Domaine du Littoral is an estate of 40 plots in Yassa, a growing area at the eastern gateway to Douala.",
+      "The roads are tarmac. Water and electricity reach the boundary of every plot. Each plot is surveyed and receives its own land title, subdivided from the parent title.",
+      "You buy your plot and build at your own pace, with the architect of your choice. A short set of building rules keeps the estate consistent."
+    ]
+  },
+  "livraison": {
+    "fr": "Lots disponibles dès maintenant",
+    "en": "Plots available now"
+  },
+  "image": "photo-a-remplacer-littoral-vue-aerienne.jpg",
+  "galerie": [
+    {
+      "fichier": "photo-a-remplacer-littoral-vue-aerienne.jpg",
+      "alt": {
+        "fr": "Vue d’ensemble du lotissement Domaine du Littoral",
+        "en": "Overview of the Domaine du Littoral estate"
+      }
+    },
+    {
+      "fichier": "photo-a-remplacer-littoral-voie.jpg",
+      "alt": {
+        "fr": "Voie bitumée desservant les lots",
+        "en": "Tarmac road serving the plots"
+      }
+    },
+    {
+      "fichier": "photo-a-remplacer-littoral-entree.jpg",
+      "alt": {
+        "fr": "Entrée du lotissement avec portail et clôture",
+        "en": "Estate entrance with gate and perimeter wall"
+      }
+    }
+  ],
+  "atouts": [
+    {
+      "icone": "file-check",
+      "fr": "Titre foncier individuel par lot",
+      "en": "Individual land title for each plot"
+    },
+    {
+      "icone": "ruler",
+      "fr": "Bornage par un géomètre assermenté",
+      "en": "Boundaries set by a sworn surveyor"
+    },
+    {
+      "icone": "route",
+      "fr": "Voies bitumées de 8 mètres",
+      "en": "Tarmac roads, 8 metres wide"
+    },
+    {
+      "icone": "droplets",
+      "fr": "Eau en limite de lot",
+      "en": "Water at the plot boundary"
+    },
+    {
+      "icone": "zap",
+      "fr": "Électricité en limite de lot",
+      "en": "Electricity at the plot boundary"
+    },
+    {
+      "icone": "shield-check",
+      "fr": "Site clôturé et gardé",
+      "en": "Walled and guarded site"
+    },
+    {
+      "icone": "trees",
+      "fr": "Espace vert central",
+      "en": "Central green space"
+    }
+  ],
+  "localisation": {
+    "texte": {
+      "fr": "Yassa, à l’est de Douala, près de l’axe Douala-Yaoundé.",
+      "en": "Yassa, east of Douala, close to the Douala-Yaoundé road."
+    },
+    "mapsQuery": "Yassa, Douala, Cameroun",
+    "lat": 4.012,
+    "lng": 9.8,
+    "proximites": [
+      {
+        "fr": "Stade de Japoma à quelques minutes",
+        "en": "Japoma Stadium a few minutes away"
+      },
+      {
+        "fr": "Axe Douala-Yaoundé à proximité",
+        "en": "Douala-Yaoundé road close by"
+      },
+      {
+        "fr": "Écoles et marchés de Yassa",
+        "en": "Yassa schools and markets"
+      },
+      {
+        "fr": "Centre-ville à environ 45 minutes hors heures de pointe",
+        "en": "City centre in about 45 minutes outside rush hour"
+      }
+    ]
+  },
+  "paiement": {
+    "fr": [
+      "50 % à la signature de la promesse de vente chez le notaire.",
+      "Le solde en 12 mensualités, sans intérêts.",
+      "Le titre foncier individuel est remis au paiement complet."
+    ],
+    "en": [
+      "50% when the preliminary sale agreement is signed at the notary’s.",
+      "The balance in 12 monthly instalments, interest-free.",
+      "The individual land title is handed over on full payment."
+    ]
+  },
+  "brochure": "brochure-domaine-du-littoral.pdf",
+  "plan": {
+    "type": "lots",
+    "colonnes": 5,
+    "taille": "normal",
+    "voie": {
+      "fr": "Voie bitumée",
+      "en": "Tarmac road"
+    },
+    "groupes": [
+      {
+        "cle": "A",
+        "fr": "Îlot A",
+        "en": "Block A"
+      },
+      {
+        "cle": "B",
+        "fr": "Îlot B",
+        "en": "Block B"
+      },
+      {
+        "cle": "C",
+        "fr": "Îlot C",
+        "en": "Block C"
+      },
+      {
+        "cle": "D",
+        "fr": "Îlot D",
+        "en": "Block D"
+      }
+    ]
+  },
+  "unites": [
+    {
+      "ref": "LIT-A01",
+      "type": "terrain",
+      "surface": 400,
+      "niveau": {
+        "fr": "Îlot A, lot 1",
+        "en": "Block A, plot 1"
+      },
+      "groupe": "A",
+      "prix": 16000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-A02",
+      "type": "terrain",
+      "surface": 300,
+      "niveau": {
+        "fr": "Îlot A, lot 2",
+        "en": "Block A, plot 2"
+      },
+      "groupe": "A",
+      "prix": 12000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-A03",
+      "type": "terrain",
+      "surface": 300,
+      "niveau": {
+        "fr": "Îlot A, lot 3",
+        "en": "Block A, plot 3"
+      },
+      "groupe": "A",
+      "prix": 12000000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-A04",
+      "type": "terrain",
+      "surface": 300,
+      "niveau": {
+        "fr": "Îlot A, lot 4",
+        "en": "Block A, plot 4"
+      },
+      "groupe": "A",
+      "prix": 12000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-A05",
+      "type": "terrain",
+      "surface": 450,
+      "niveau": {
+        "fr": "Îlot A, lot 5",
+        "en": "Block A, plot 5"
+      },
+      "groupe": "A",
+      "prix": 18000000,
+      "statut": "reserve"
+    },
+    {
+      "ref": "LIT-A06",
+      "type": "terrain",
+      "surface": 400,
+      "niveau": {
+        "fr": "Îlot A, lot 6",
+        "en": "Block A, plot 6"
+      },
+      "groupe": "A",
+      "prix": 16000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-A07",
+      "type": "terrain",
+      "surface": 300,
+      "niveau": {
+        "fr": "Îlot A, lot 7",
+        "en": "Block A, plot 7"
+      },
+      "groupe": "A",
+      "prix": 12000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-A08",
+      "type": "terrain",
+      "surface": 300,
+      "niveau": {
+        "fr": "Îlot A, lot 8",
+        "en": "Block A, plot 8"
+      },
+      "groupe": "A",
+      "prix": 12000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-A09",
+      "type": "terrain",
+      "surface": 350,
+      "niveau": {
+        "fr": "Îlot A, lot 9",
+        "en": "Block A, plot 9"
+      },
+      "groupe": "A",
+      "prix": 14000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-A10",
+      "type": "terrain",
+      "surface": 450,
+      "niveau": {
+        "fr": "Îlot A, lot 10",
+        "en": "Block A, plot 10"
+      },
+      "groupe": "A",
+      "prix": 18000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-B01",
+      "type": "terrain",
+      "surface": 450,
+      "niveau": {
+        "fr": "Îlot B, lot 1",
+        "en": "Block B, plot 1"
+      },
+      "groupe": "B",
+      "prix": 18450000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-B02",
+      "type": "terrain",
+      "surface": 350,
+      "niveau": {
+        "fr": "Îlot B, lot 2",
+        "en": "Block B, plot 2"
+      },
+      "groupe": "B",
+      "prix": 14350000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-B03",
+      "type": "terrain",
+      "surface": 350,
+      "niveau": {
+        "fr": "Îlot B, lot 3",
+        "en": "Block B, plot 3"
+      },
+      "groupe": "B",
+      "prix": 14350000,
+      "statut": "reserve"
+    },
+    {
+      "ref": "LIT-B04",
+      "type": "terrain",
+      "surface": 350,
+      "niveau": {
+        "fr": "Îlot B, lot 4",
+        "en": "Block B, plot 4"
+      },
+      "groupe": "B",
+      "prix": 14350000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-B05",
+      "type": "terrain",
+      "surface": 500,
+      "niveau": {
+        "fr": "Îlot B, lot 5",
+        "en": "Block B, plot 5"
+      },
+      "groupe": "B",
+      "prix": 20500000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-B06",
+      "type": "terrain",
+      "surface": 450,
+      "niveau": {
+        "fr": "Îlot B, lot 6",
+        "en": "Block B, plot 6"
+      },
+      "groupe": "B",
+      "prix": 18450000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-B07",
+      "type": "terrain",
+      "surface": 350,
+      "niveau": {
+        "fr": "Îlot B, lot 7",
+        "en": "Block B, plot 7"
+      },
+      "groupe": "B",
+      "prix": 14350000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-B08",
+      "type": "terrain",
+      "surface": 350,
+      "niveau": {
+        "fr": "Îlot B, lot 8",
+        "en": "Block B, plot 8"
+      },
+      "groupe": "B",
+      "prix": 14350000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-B09",
+      "type": "terrain",
+      "surface": 400,
+      "niveau": {
+        "fr": "Îlot B, lot 9",
+        "en": "Block B, plot 9"
+      },
+      "groupe": "B",
+      "prix": 16400000,
+      "statut": "reserve"
+    },
+    {
+      "ref": "LIT-B10",
+      "type": "terrain",
+      "surface": 500,
+      "niveau": {
+        "fr": "Îlot B, lot 10",
+        "en": "Block B, plot 10"
+      },
+      "groupe": "B",
+      "prix": 20500000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-C01",
+      "type": "terrain",
+      "surface": 400,
+      "niveau": {
+        "fr": "Îlot C, lot 1",
+        "en": "Block C, plot 1"
+      },
+      "groupe": "C",
+      "prix": 16800000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-C02",
+      "type": "terrain",
+      "surface": 300,
+      "niveau": {
+        "fr": "Îlot C, lot 2",
+        "en": "Block C, plot 2"
+      },
+      "groupe": "C",
+      "prix": 12600000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-C03",
+      "type": "terrain",
+      "surface": 300,
+      "niveau": {
+        "fr": "Îlot C, lot 3",
+        "en": "Block C, plot 3"
+      },
+      "groupe": "C",
+      "prix": 12600000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-C04",
+      "type": "terrain",
+      "surface": 350,
+      "niveau": {
+        "fr": "Îlot C, lot 4",
+        "en": "Block C, plot 4"
+      },
+      "groupe": "C",
+      "prix": 14700000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-C05",
+      "type": "terrain",
+      "surface": 500,
+      "niveau": {
+        "fr": "Îlot C, lot 5",
+        "en": "Block C, plot 5"
+      },
+      "groupe": "C",
+      "prix": 21000000,
+      "statut": "reserve"
+    },
+    {
+      "ref": "LIT-C06",
+      "type": "terrain",
+      "surface": 450,
+      "niveau": {
+        "fr": "Îlot C, lot 6",
+        "en": "Block C, plot 6"
+      },
+      "groupe": "C",
+      "prix": 18900000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-C07",
+      "type": "terrain",
+      "surface": 350,
+      "niveau": {
+        "fr": "Îlot C, lot 7",
+        "en": "Block C, plot 7"
+      },
+      "groupe": "C",
+      "prix": 14700000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-C08",
+      "type": "terrain",
+      "surface": 350,
+      "niveau": {
+        "fr": "Îlot C, lot 8",
+        "en": "Block C, plot 8"
+      },
+      "groupe": "C",
+      "prix": 14700000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-C09",
+      "type": "terrain",
+      "surface": 400,
+      "niveau": {
+        "fr": "Îlot C, lot 9",
+        "en": "Block C, plot 9"
+      },
+      "groupe": "C",
+      "prix": 16800000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-C10",
+      "type": "terrain",
+      "surface": 600,
+      "niveau": {
+        "fr": "Îlot C, lot 10",
+        "en": "Block C, plot 10"
+      },
+      "groupe": "C",
+      "prix": 25200000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-D01",
+      "type": "terrain",
+      "surface": 500,
+      "niveau": {
+        "fr": "Îlot D, lot 1",
+        "en": "Block D, plot 1"
+      },
+      "groupe": "D",
+      "prix": 22000000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-D02",
+      "type": "terrain",
+      "surface": 400,
+      "niveau": {
+        "fr": "Îlot D, lot 2",
+        "en": "Block D, plot 2"
+      },
+      "groupe": "D",
+      "prix": 17600000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-D03",
+      "type": "terrain",
+      "surface": 400,
+      "niveau": {
+        "fr": "Îlot D, lot 3",
+        "en": "Block D, plot 3"
+      },
+      "groupe": "D",
+      "prix": 17600000,
+      "statut": "reserve"
+    },
+    {
+      "ref": "LIT-D04",
+      "type": "terrain",
+      "surface": 400,
+      "niveau": {
+        "fr": "Îlot D, lot 4",
+        "en": "Block D, plot 4"
+      },
+      "groupe": "D",
+      "prix": 17600000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-D05",
+      "type": "terrain",
+      "surface": 600,
+      "niveau": {
+        "fr": "Îlot D, lot 5",
+        "en": "Block D, plot 5"
+      },
+      "groupe": "D",
+      "prix": 26400000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-D06",
+      "type": "terrain",
+      "surface": 500,
+      "niveau": {
+        "fr": "Îlot D, lot 6",
+        "en": "Block D, plot 6"
+      },
+      "groupe": "D",
+      "prix": 22000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "LIT-D07",
+      "type": "terrain",
+      "surface": 400,
+      "niveau": {
+        "fr": "Îlot D, lot 7",
+        "en": "Block D, plot 7"
+      },
+      "groupe": "D",
+      "prix": 17600000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-D08",
+      "type": "terrain",
+      "surface": 400,
+      "niveau": {
+        "fr": "Îlot D, lot 8",
+        "en": "Block D, plot 8"
+      },
+      "groupe": "D",
+      "prix": 17600000,
+      "statut": "reserve"
+    },
+    {
+      "ref": "LIT-D09",
+      "type": "terrain",
+      "surface": 450,
+      "niveau": {
+        "fr": "Îlot D, lot 9",
+        "en": "Block D, plot 9"
+      },
+      "groupe": "D",
+      "prix": 19800000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "LIT-D10",
+      "type": "terrain",
+      "surface": 600,
+      "niveau": {
+        "fr": "Îlot D, lot 10",
+        "en": "Block D, plot 10"
+      },
+      "groupe": "D",
+      "prix": 26400000,
+      "statut": "disponible"
+    }
+  ]
+}

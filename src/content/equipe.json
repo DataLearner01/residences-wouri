@@ -1,0 +1,30 @@
+[
+  {
+    "prenom": "Armelle",
+    "nom": "Ndongo",
+    "role": { "fr": "Directrice générale", "en": "Managing Director" },
+    "whatsapp": "237600000001",
+    "photo": "photo-a-remplacer-equipe-1.jpg"
+  },
+  {
+    "prenom": "Patrick",
+    "nom": "Ekwalla",
+    "role": { "fr": "Directeur des travaux", "en": "Construction Director" },
+    "whatsapp": "237600000002",
+    "photo": "photo-a-remplacer-equipe-2.jpg"
+  },
+  {
+    "prenom": "Sandrine",
+    "nom": "Moukoko",
+    "role": { "fr": "Conseillère commerciale, référente diaspora", "en": "Sales adviser, diaspora desk" },
+    "whatsapp": "237600000003",
+    "photo": "photo-a-remplacer-equipe-3.jpg"
+  },
+  {
+    "prenom": "Yves",
+    "nom": "Tchamba",
+    "role": { "fr": "Responsable foncier et juridique", "en": "Land and legal manager" },
+    "whatsapp": "237600000004",
+    "photo": "photo-a-remplacer-equipe-4.jpg"
+  }
+]

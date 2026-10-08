@@ -1,0 +1,71 @@
+---
+// Route unique : toutes les pages du site, dans les deux langues.
+// Les adresses viennent de la table `routes` de src/i18n/index.ts.
+import type { GetStaticPaths } from 'astro';
+import { getArticles, getProgrammes } from '../../lib/content';
+import { href, langs, routes, type Lang, type RouteKey } from '../../i18n';
+import Home from '../../views/Home.astro';
+import Programmes from '../../views/Programmes.astro';
+import Programme from '../../views/Programme.astro';
+import Avancement from '../../views/Avancement.astro';
+import Realisations from '../../views/Realisations.astro';
+import About from '../../views/About.astro';
+import News from '../../views/News.astro';
+import ArticlePage from '../../views/ArticlePage.astro';
+import Contact from '../../views/Contact.astro';
+import TextPage from '../../views/TextPage.astro';
+
+type PageProps = {
+  view: RouteKey | 'programme' | 'article';
+  lang: Lang;
+  alternates: Record<Lang, string>;
+  slug?: string;
+};
+
+export const getStaticPaths = (async () => {
+  const pages: { params: { lang: Lang; path: string | undefined }; props: PageProps }[] = [];
+  const add = (lang: Lang, view: PageProps['view'], alternates: Record<Lang, string>, slug?: string) => {
+    const path = alternates[lang].replace(`/${lang}/`, '').replace(/\/$/, '') || undefined;
+    pages.push({ params: { lang, path }, props: { view, lang, alternates, slug } });
+  };
+
+  // Pages simples.
+  for (const key of Object.keys(routes) as RouteKey[]) {
+    const alternates = { fr: href('fr', key), en: href('en', key) };
+    for (const lang of langs) add(lang, key, alternates);
+  }
+
+  // Une fiche par programme.
+  for (const programme of await getProgrammes()) {
+    const alternates = { fr: href('fr', 'programmes', programme.slug), en: href('en', 'programmes', programme.slug) };
+    for (const lang of langs) add(lang, 'programme', alternates, programme.slug);
+  }
+
+  // Une page par article ; `cle` relie les deux traductions.
+  const articles = await getArticles();
+  for (const article of articles) {
+    const alternates = Object.fromEntries(
+      langs.map((lang) => {
+        const version = articles.find((a) => a.lang === lang && a.data.cle === article.data.cle);
+        return [lang, version ? href(lang, 'news', version.slug) : href(lang, 'news')];
+      }),
+    ) as Record<Lang, string>;
+    add(article.lang, 'article', alternates, article.slug);
+  }
+
+  return pages;
+}) satisfies GetStaticPaths;
+
+const { view, lang, alternates, slug } = Astro.props as PageProps;
+---
+
+{view === 'home' && <Home lang={lang} alternates={alternates} />}
+{view === 'programmes' && <Programmes lang={lang} alternates={alternates} />}
+{view === 'programme' && <Programme lang={lang} alternates={alternates} slug={slug!} />}
+{view === 'avancement' && <Avancement lang={lang} alternates={alternates} />}
+{view === 'realisations' && <Realisations lang={lang} alternates={alternates} />}
+{view === 'about' && <About lang={lang} alternates={alternates} />}
+{view === 'news' && <News lang={lang} alternates={alternates} />}
+{view === 'article' && <ArticlePage lang={lang} alternates={alternates} slug={slug!} />}
+{view === 'contact' && <Contact lang={lang} alternates={alternates} />}
+{(view === 'legal' || view === 'privacy') && <TextPage lang={lang} alternates={alternates} page={view} />}

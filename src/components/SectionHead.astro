@@ -1,0 +1,19 @@
+---
+// En-tête de section : le titre en deux tons à gauche, le texte et les actions à droite.
+import Tone from './Tone.astro';
+
+interface Props {
+  title: string;
+  text?: string;
+}
+
+const { title, text } = Astro.props;
+---
+
+<div class="grid gap-6 lg:grid-cols-2 lg:gap-20">
+  <h2 class="h-section"><Tone text={title} /></h2>
+  <div class="lg:pt-2">
+    {text && <p class="lead max-w-xl"><Tone text={text} soft auto /></p>}
+    <slot />
+  </div>
+</div>

@@ -1,0 +1,539 @@
+{
+  "nom": "Résidence Les Palmiers",
+  "ordre": 1,
+  "aLaUne": true,
+  "quartier": "Bonamoussadi",
+  "statut": "construction",
+  "types": [
+    "appartement"
+  ],
+  "typologie": {
+    "fr": "Appartements F2, F3 et F4",
+    "en": "1, 2 and 3-bedroom apartments"
+  },
+  "accroche": {
+    "fr": "Vingt-quatre appartements traversants dans deux petits immeubles, au calme, à Bonamoussadi.",
+    "en": "Twenty-four dual-aspect apartments in two low-rise buildings on a quiet street in Bonamoussadi."
+  },
+  "description": {
+    "fr": [
+      "La Résidence Les Palmiers réunit 24 appartements dans deux immeubles de quatre niveaux, dans une rue résidentielle de Bonamoussadi.",
+      "Chaque logement est traversant, avec un séjour ouvert sur un balcon et une cuisine séparée. Les F4 disposent d’une suite parentale avec salle d’eau.",
+      "Le gros œuvre est terminé. Les finitions sont en cours et la livraison est prévue en juin 2027."
+    ],
+    "en": [
+      "Résidence Les Palmiers brings together 24 apartments in two four-storey buildings on a residential street in Bonamoussadi.",
+      "Every home is dual-aspect, with a living room opening onto a balcony and a separate kitchen. The 3-bedroom apartments have a master suite with its own shower room.",
+      "The structural works are complete. Finishes are under way and handover is planned for June 2027."
+    ]
+  },
+  "livraison": {
+    "fr": "Prévue en juin 2027",
+    "en": "Planned for June 2027"
+  },
+  "image": "photo-a-remplacer-palmiers-facade.jpg",
+  "galerie": [
+    {
+      "fichier": "photo-a-remplacer-palmiers-facade.jpg",
+      "alt": {
+        "fr": "Façade des deux immeubles de la Résidence Les Palmiers",
+        "en": "Front view of the two buildings of Résidence Les Palmiers"
+      }
+    },
+    {
+      "fichier": "photo-a-remplacer-palmiers-sejour.jpg",
+      "alt": {
+        "fr": "Séjour d’un appartement F3 avec balcon",
+        "en": "Living room of a 2-bedroom apartment with balcony"
+      }
+    },
+    {
+      "fichier": "photo-a-remplacer-palmiers-jardin.jpg",
+      "alt": {
+        "fr": "Jardin commun entre les deux bâtiments",
+        "en": "Shared garden between the two buildings"
+      }
+    },
+    {
+      "fichier": "photo-a-remplacer-palmiers-entree.jpg",
+      "alt": {
+        "fr": "Entrée de la résidence depuis la rue",
+        "en": "Entrance to the residence from the street"
+      }
+    }
+  ],
+  "atouts": [
+    {
+      "icone": "droplets",
+      "fr": "Forage et château d’eau",
+      "en": "Borehole and water tower"
+    },
+    {
+      "icone": "zap",
+      "fr": "Électricité avec compteur individuel",
+      "en": "Mains electricity with individual meters"
+    },
+    {
+      "icone": "plug-zap",
+      "fr": "Groupe électrogène de secours",
+      "en": "Standby generator"
+    },
+    {
+      "icone": "shield-check",
+      "fr": "Gardiennage jour et nuit",
+      "en": "Day and night security"
+    },
+    {
+      "icone": "route",
+      "fr": "Accès par route bitumée",
+      "en": "Tarmac road access"
+    },
+    {
+      "icone": "car",
+      "fr": "Une place de parking par logement",
+      "en": "One parking space per home"
+    },
+    {
+      "icone": "trees",
+      "fr": "Jardin commun planté",
+      "en": "Planted shared garden"
+    }
+  ],
+  "localisation": {
+    "texte": {
+      "fr": "Rue résidentielle de Bonamoussadi, dans le nord de Douala.",
+      "en": "A residential street in Bonamoussadi, in the north of Douala."
+    },
+    "mapsQuery": "Bonamoussadi, Douala, Cameroun",
+    "lat": 4.088,
+    "lng": 9.741,
+    "proximites": [
+      {
+        "fr": "Écoles et lycée du quartier à moins de 10 minutes à pied",
+        "en": "Local schools within a 10-minute walk"
+      },
+      {
+        "fr": "Marché et commerces de Bonamoussadi",
+        "en": "Bonamoussadi market and shops"
+      },
+      {
+        "fr": "Parcours Vita à 5 minutes en voiture",
+        "en": "Parcours Vita sports trail, 5 minutes by car"
+      },
+      {
+        "fr": "Akwa à environ 25 minutes hors heures de pointe",
+        "en": "Akwa in about 25 minutes outside rush hour"
+      }
+    ]
+  },
+  "paiement": {
+    "fr": [
+      "30 % à la réservation, à la signature du contrat chez le notaire.",
+      "60 % en appels de fonds, à chaque étape du chantier constatée.",
+      "10 % à la remise des clés."
+    ],
+    "en": [
+      "30% on reservation, when the contract is signed at the notary’s.",
+      "60% in staged payments, as each construction milestone is certified.",
+      "10% when the keys are handed over."
+    ]
+  },
+  "brochure": "brochure-residence-les-palmiers.pdf",
+  "chantier": {
+    "avancement": 65,
+    "miseAJour": "2026-09",
+    "etapes": [
+      {
+        "cle": "fondations",
+        "statut": "fait",
+        "date": "2025-06"
+      },
+      {
+        "cle": "grosOeuvre",
+        "statut": "fait",
+        "date": "2026-07"
+      },
+      {
+        "cle": "finitions",
+        "statut": "enCours",
+        "date": "2026-08"
+      },
+      {
+        "cle": "livraison",
+        "statut": "aVenir",
+        "date": "2027-06"
+      }
+    ],
+    "photos": [
+      {
+        "fichier": "photo-a-remplacer-chantier-palmiers-2026-03.jpg",
+        "mois": "2026-03",
+        "legende": {
+          "fr": "Élévation du 2e étage, bâtiment A",
+          "en": "Second floor going up, building A"
+        }
+      },
+      {
+        "fichier": "photo-a-remplacer-chantier-palmiers-2026-05.jpg",
+        "mois": "2026-05",
+        "legende": {
+          "fr": "Dalle du 3e étage coulée",
+          "en": "Third-floor slab poured"
+        }
+      },
+      {
+        "fichier": "photo-a-remplacer-chantier-palmiers-2026-07.jpg",
+        "mois": "2026-07",
+        "legende": {
+          "fr": "Fin du gros œuvre, toiture étanchée",
+          "en": "Structure complete, roof waterproofed"
+        }
+      },
+      {
+        "fichier": "photo-a-remplacer-chantier-palmiers-2026-08.jpg",
+        "mois": "2026-08",
+        "legende": {
+          "fr": "Pose des menuiseries aluminium",
+          "en": "Aluminium windows being fitted"
+        }
+      },
+      {
+        "fichier": "photo-a-remplacer-chantier-palmiers-2026-09.jpg",
+        "mois": "2026-09",
+        "legende": {
+          "fr": "Enduits de façade et carrelage des premiers niveaux",
+          "en": "Rendering and tiling on the lower floors"
+        }
+      }
+    ]
+  },
+  "plan": {
+    "type": "etages",
+    "groupes": [
+      {
+        "cle": "A",
+        "fr": "Bâtiment A",
+        "en": "Building A"
+      },
+      {
+        "cle": "B",
+        "fr": "Bâtiment B",
+        "en": "Building B"
+      }
+    ]
+  },
+  "unites": [
+    {
+      "ref": "PAL-A01",
+      "type": "f2",
+      "surface": 64,
+      "niveau": {
+        "fr": "Bâtiment A, rez-de-chaussée",
+        "en": "Building A, ground floor"
+      },
+      "groupe": "A",
+      "rang": 0,
+      "prix": 38000000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "PAL-A02",
+      "type": "f3",
+      "surface": 88,
+      "niveau": {
+        "fr": "Bâtiment A, rez-de-chaussée",
+        "en": "Building A, ground floor"
+      },
+      "groupe": "A",
+      "rang": 0,
+      "prix": 52000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "PAL-A03",
+      "type": "f4",
+      "surface": 116,
+      "niveau": {
+        "fr": "Bâtiment A, rez-de-chaussée",
+        "en": "Building A, ground floor"
+      },
+      "groupe": "A",
+      "rang": 0,
+      "prix": 68000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "PAL-A11",
+      "type": "f2",
+      "surface": 64,
+      "niveau": {
+        "fr": "Bâtiment A, 1er étage",
+        "en": "Building A, 1st floor"
+      },
+      "groupe": "A",
+      "rang": 1,
+      "prix": 38800000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "PAL-A12",
+      "type": "f3",
+      "surface": 88,
+      "niveau": {
+        "fr": "Bâtiment A, 1er étage",
+        "en": "Building A, 1st floor"
+      },
+      "groupe": "A",
+      "rang": 1,
+      "prix": 53000000,
+      "statut": "reserve"
+    },
+    {
+      "ref": "PAL-A13",
+      "type": "f4",
+      "surface": 116,
+      "niveau": {
+        "fr": "Bâtiment A, 1er étage",
+        "en": "Building A, 1st floor"
+      },
+      "groupe": "A",
+      "rang": 1,
+      "prix": 69500000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "PAL-A21",
+      "type": "f2",
+      "surface": 64,
+      "niveau": {
+        "fr": "Bâtiment A, 2e étage",
+        "en": "Building A, 2nd floor"
+      },
+      "groupe": "A",
+      "rang": 2,
+      "prix": 39600000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "PAL-A22",
+      "type": "f3",
+      "surface": 88,
+      "niveau": {
+        "fr": "Bâtiment A, 2e étage",
+        "en": "Building A, 2nd floor"
+      },
+      "groupe": "A",
+      "rang": 2,
+      "prix": 54000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "PAL-A23",
+      "type": "f4",
+      "surface": 116,
+      "niveau": {
+        "fr": "Bâtiment A, 2e étage",
+        "en": "Building A, 2nd floor"
+      },
+      "groupe": "A",
+      "rang": 2,
+      "prix": 71000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "PAL-A31",
+      "type": "f2",
+      "surface": 64,
+      "niveau": {
+        "fr": "Bâtiment A, 3e étage",
+        "en": "Building A, 3rd floor"
+      },
+      "groupe": "A",
+      "rang": 3,
+      "prix": 40400000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "PAL-A32",
+      "type": "f3",
+      "surface": 88,
+      "niveau": {
+        "fr": "Bâtiment A, 3e étage",
+        "en": "Building A, 3rd floor"
+      },
+      "groupe": "A",
+      "rang": 3,
+      "prix": 55000000,
+      "statut": "reserve"
+    },
+    {
+      "ref": "PAL-A33",
+      "type": "f4",
+      "surface": 116,
+      "niveau": {
+        "fr": "Bâtiment A, 3e étage",
+        "en": "Building A, 3rd floor"
+      },
+      "groupe": "A",
+      "rang": 3,
+      "prix": 72500000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "PAL-B01",
+      "type": "f2",
+      "surface": 64,
+      "niveau": {
+        "fr": "Bâtiment B, rez-de-chaussée",
+        "en": "Building B, ground floor"
+      },
+      "groupe": "B",
+      "rang": 0,
+      "prix": 38500000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "PAL-B02",
+      "type": "f3",
+      "surface": 88,
+      "niveau": {
+        "fr": "Bâtiment B, rez-de-chaussée",
+        "en": "Building B, ground floor"
+      },
+      "groupe": "B",
+      "rang": 0,
+      "prix": 53000000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "PAL-B03",
+      "type": "f4",
+      "surface": 116,
+      "niveau": {
+        "fr": "Bâtiment B, rez-de-chaussée",
+        "en": "Building B, ground floor"
+      },
+      "groupe": "B",
+      "rang": 0,
+      "prix": 69000000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "PAL-B11",
+      "type": "f2",
+      "surface": 64,
+      "niveau": {
+        "fr": "Bâtiment B, 1er étage",
+        "en": "Building B, 1st floor"
+      },
+      "groupe": "B",
+      "rang": 1,
+      "prix": 39300000,
+      "statut": "reserve"
+    },
+    {
+      "ref": "PAL-B12",
+      "type": "f3",
+      "surface": 88,
+      "niveau": {
+        "fr": "Bâtiment B, 1er étage",
+        "en": "Building B, 1st floor"
+      },
+      "groupe": "B",
+      "rang": 1,
+      "prix": 54000000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "PAL-B13",
+      "type": "f4",
+      "surface": 116,
+      "niveau": {
+        "fr": "Bâtiment B, 1er étage",
+        "en": "Building B, 1st floor"
+      },
+      "groupe": "B",
+      "rang": 1,
+      "prix": 70500000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "PAL-B21",
+      "type": "f2",
+      "surface": 64,
+      "niveau": {
+        "fr": "Bâtiment B, 2e étage",
+        "en": "Building B, 2nd floor"
+      },
+      "groupe": "B",
+      "rang": 2,
+      "prix": 40100000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "PAL-B22",
+      "type": "f3",
+      "surface": 88,
+      "niveau": {
+        "fr": "Bâtiment B, 2e étage",
+        "en": "Building B, 2nd floor"
+      },
+      "groupe": "B",
+      "rang": 2,
+      "prix": 55000000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "PAL-B23",
+      "type": "f4",
+      "surface": 116,
+      "niveau": {
+        "fr": "Bâtiment B, 2e étage",
+        "en": "Building B, 2nd floor"
+      },
+      "groupe": "B",
+      "rang": 2,
+      "prix": 72000000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "PAL-B31",
+      "type": "f2",
+      "surface": 64,
+      "niveau": {
+        "fr": "Bâtiment B, 3e étage",
+        "en": "Building B, 3rd floor"
+      },
+      "groupe": "B",
+      "rang": 3,
+      "prix": 40900000,
+      "statut": "reserve"
+    },
+    {
+      "ref": "PAL-B32",
+      "type": "f3",
+      "surface": 88,
+      "niveau": {
+        "fr": "Bâtiment B, 3e étage",
+        "en": "Building B, 3rd floor"
+      },
+      "groupe": "B",
+      "rang": 3,
+      "prix": 56000000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "PAL-B33",
+      "type": "f4",
+      "surface": 116,
+      "niveau": {
+        "fr": "Bâtiment B, 3e étage",
+        "en": "Building B, 3rd floor"
+      },
+      "groupe": "B",
+      "rang": 3,
+      "prix": 73500000,
+      "statut": "vendu"
+    }
+  ]
+}

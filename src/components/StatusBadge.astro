@@ -1,0 +1,22 @@
+---
+// Statut d'un programme : une pastille de couleur et son libellé, dans une pilule.
+import { useT, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  statut: 'commercialisation' | 'construction' | 'livre';
+  class?: string;
+}
+
+const { lang, statut, class: className } = Astro.props;
+const dots = {
+  commercialisation: 'dot-disponible',
+  construction: 'dot-reserve',
+  livre: 'bg-encre',
+};
+---
+
+<span class:list={['pastille', className]}>
+  <span class:list={['dot', dots[statut]]}></span>
+  {useT(lang).status[statut]}
+</span>

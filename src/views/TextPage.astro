@@ -1,0 +1,57 @@
+---
+// Pages légales : mentions légales et politique de confidentialité.
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../config/site';
+import { fill, useT, type Lang } from '../i18n';
+import { addressLine, fcfa } from '../lib/format';
+
+interface Props {
+  lang: Lang;
+  alternates: Record<Lang, string>;
+  page: 'legal' | 'privacy';
+}
+
+const { lang, alternates, page } = Astro.props;
+const t = useT(lang);
+const content = t[page];
+const vars = {
+  capital: fcfa(site.legal.capital, lang),
+  adresse: addressLine(),
+  rccm: site.legal.rccm,
+  niu: site.legal.niu,
+  tel: site.phone,
+  email: site.email,
+};
+---
+
+<Base
+  lang={lang}
+  title={content.metaTitle}
+  description={content.metaDescription}
+  alternates={alternates}
+  waMessage={t.wa.msg.contact}
+  current={page}
+>
+  <PageHead title={content.title} />
+
+  <section class="container-page section">
+    <p class="mb-10 inline-flex items-center gap-2.5 bg-brume px-4 py-2.5 font-semibold">
+      <Icon name="info" size={18} />
+      {t.common.demoNotice}
+    </p>
+    <div class="prose">
+      {
+        content.sections.map((section) => (
+          <>
+            <h2>{section.title}</h2>
+            {section.text.map((paragraph) => (
+              <p>{fill(paragraph, vars)}</p>
+            ))}
+          </>
+        ))
+      }
+    </div>
+  </section>
+</Base>

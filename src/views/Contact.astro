@@ -1,0 +1,264 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import BrandIcon from '../components/BrandIcon.astro';
+import Icon from '../components/Icon.astro';
+import LocationMap from '../components/LocationMap.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { site } from '../config/site';
+import { href, useT, type Lang } from '../i18n';
+import { hoursLines, mapsUrl } from '../lib/format';
+import { getProgrammes } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  alternates: Record<Lang, string>;
+}
+
+const { lang, alternates } = Astro.props;
+const t = useT(lang);
+const c = t.contact;
+const programmes = await getProgrammes();
+const demo = !site.formEndpoint;
+const infoHeading = 'text-[0.8125rem] font-normal tracking-normal text-encre-600';
+---
+
+<Base
+  lang={lang}
+  title={c.metaTitle}
+  description={c.metaDescription}
+  alternates={alternates}
+  waMessage={t.wa.msg.contact}
+  current="contact"
+>
+  <PageHead title={c.title} intro={c.intro} />
+
+  <section class="container-page section grid gap-14 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
+    <div>
+      <div class="bande-nuit p-7 md:p-10" data-pointeur="0.12" data-pointeur-saut>
+        <h2 class="text-[1.9rem] leading-tight">{c.waTitle}</h2>
+        <p class="ton-doux mt-2">{c.waText}</p>
+        <WhatsAppButton
+          message={t.wa.msg.contact}
+          label={t.wa.write}
+          class="mt-6 !min-h-[3.75rem] w-full !text-[1.1rem] sm:w-auto sm:!px-9"
+        />
+        <p class="ton-doux mt-4">{site.whatsapp.display}</p>
+      </div>
+
+      <h2 class="h-sub mt-14">{c.formTitle}</h2>
+
+      <form
+        class="mt-7 grid gap-5"
+        method="post"
+        action={site.formEndpoint || undefined}
+        data-contact-form
+        data-endpoint={site.formEndpoint}
+        data-sending={c.sending}
+        data-wa-number={site.whatsapp.number}
+        data-wa-template={t.wa.msg.form}
+        data-wa-visit={c.wantsVisit}
+        data-none={c.programmeNone}
+      >
+        <div>
+          <label class="field-label" for="c-nom">{c.name}</label>
+          <input class="field" id="c-nom" name="nom" type="text" autocomplete="name" required />
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label class="field-label" for="c-tel">{c.phone}</label>
+            <input
+              class="field"
+              id="c-tel"
+              name="telephone"
+              type="tel"
+              inputmode="tel"
+              autocomplete="tel"
+              aria-describedby="c-tel-aide"
+              required
+            />
+            <p id="c-tel-aide" class="mt-1.5 text-sm text-encre-600">{c.phoneHint}</p>
+          </div>
+          <div>
+            <label class="field-label" for="c-email">
+              {c.email}{' '}
+              <span class="font-normal text-encre-600">({c.optional})</span>
+            </label>
+            <input class="field" id="c-email" name="email" type="email" autocomplete="email" />
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="c-programme">{c.programme}</label>
+          <select class="field" id="c-programme" name="programme">
+            <option value="">{c.programmeNone}</option>
+            {programmes.map((p) => <option value={p.nom} data-slug={p.slug}>{`${p.nom}, ${p.quartier}`}</option>)}
+          </select>
+        </div>
+        <label class="flex cursor-pointer items-center gap-3 font-medium">
+          <input type="checkbox" name="visite" value="oui" class="h-5 w-5 accent-encre" />
+          {c.wantsVisit}
+        </label>
+        <div>
+          <label class="field-label" for="c-message">{c.message}</label>
+          <textarea class="field" id="c-message" name="message" rows="5" required></textarea>
+        </div>
+
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+        <input type="hidden" name="_subject" value={`${site.name} : ${c.formTitle}`} />
+        <input type="hidden" name="langue" value={lang} />
+
+        <p class="text-sm text-encre-600">
+          {c.privacy}{' '}
+          <a href={href(lang, 'privacy')} class="link">{c.privacyLink}</a>
+        </p>
+
+        <p
+          data-form-error
+          hidden
+          role="alert"
+          class="border-l-4 border-alerte bg-brume p-4 font-medium"
+        >
+          {c.error}
+        </p>
+
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <button type="submit" class="btn btn-primary" data-submit>{c.submit}</button>
+          <button type="button" class="btn btn-whatsapp js-only" data-form-wa>
+            <BrandIcon name="whatsapp" size={20} />
+            {c.viaWhatsApp}
+          </button>
+        </div>
+      </form>
+
+      <div data-form-success hidden tabindex="-1" role="status" class="mt-7 bg-brume-200 p-7 outline-none md:p-9">
+        <span class="grid h-12 w-12 place-items-center rounded-full bg-encre text-white">
+          <Icon name="check" size={24} />
+        </span>
+        <h3 class="mt-4 text-[1.7rem]">{c.successTitle}</h3>
+        <p class="mt-2 text-[1.05rem]">{c.successText}</p>
+        {demo && <p class="mt-4 bg-brume px-4 py-3 text-sm font-medium">{c.demoText}</p>}
+        <button type="button" class="link mt-6" data-form-again>{c.again}</button>
+      </div>
+    </div>
+
+    <aside>
+      <h2 class="h-sub">{c.infoTitle}</h2>
+      <figure class="mt-7">
+        <LocationMap lang={lang} lat={site.geo.lat} lng={site.geo.lng} label={site.name} />
+        <figcaption class="mt-2 text-sm text-encre-600">{t.common.mapNote}</figcaption>
+      </figure>
+      <a href={mapsUrl(site.mapsQuery)} target="_blank" rel="noopener" class="link mt-4 inline-flex items-center gap-2">
+        {t.common.openMaps}
+        <Icon name="external-link" size={16} />
+      </a>
+
+      <dl class="mt-9 space-y-6">
+        <div>
+          <dt class={infoHeading}>{c.address}</dt>
+          <dd class="mt-1.5 text-[1.05rem]">
+            {site.address.street}<br />
+            {site.address.district}, {site.address.city}
+            <span class="block text-sm text-encre-600">{c.addressNote}</span>
+          </dd>
+        </div>
+        <div>
+          <dt class={infoHeading}>{c.hoursTitle}</dt>
+          <dd class="mt-1.5 text-[1.05rem]">
+            <ul class="space-y-1">
+              {
+                hoursLines(lang).map((line) => (
+                  <li class="flex flex-wrap justify-between gap-x-6">
+                    <span>{line.label}</span>
+                    {line.time && <span class="font-semibold">{line.time}</span>}
+                  </li>
+                ))
+              }
+            </ul>
+          </dd>
+        </div>
+        <div>
+          <dt class={infoHeading}>{c.phoneLabel}</dt>
+          <dd class="mt-1.5 text-[1.05rem]">{site.phone}</dd>
+        </div>
+        <div>
+          <dt class={infoHeading}>{c.emailLabel}</dt>
+          <dd class="mt-1.5 text-[1.05rem]">
+            <a href={`mailto:${site.email}`} class="link break-all">{site.email}</a>
+          </dd>
+        </div>
+      </dl>
+    </aside>
+  </section>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const success = document.querySelector<HTMLElement>('[data-form-success]');
+
+  if (form && success) {
+    const error = form.querySelector<HTMLElement>('[data-form-error]')!;
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const select = form.querySelector<HTMLSelectElement>('select[name="programme"]')!;
+    const visit = form.querySelector<HTMLInputElement>('input[name="visite"]')!;
+    const field = (name: string) => (form.elements.namedItem(name) as HTMLInputElement).value.trim();
+
+    // Arrivée depuis une fiche programme : ?programme=<identifiant>&visite=1
+    const params = new URLSearchParams(location.search);
+    const wanted = params.get('programme');
+    if (wanted) {
+      const option = Array.from(select.options).find((o) => o.dataset.slug === wanted);
+      if (option) select.value = option.value;
+    }
+    if (params.has('visite')) visit.checked = true;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      error.hidden = true;
+      const label = submit.textContent;
+      submit.disabled = true;
+      submit.textContent = form.dataset.sending ?? label;
+      try {
+        const endpoint = form.dataset.endpoint;
+        if (endpoint) {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' },
+          });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        } else {
+          // Mode démonstration : aucun envoi, on montre seulement la confirmation.
+          await new Promise((resolve) => setTimeout(resolve, 400));
+        }
+        form.hidden = true;
+        success.hidden = false;
+        success.focus();
+      } catch {
+        error.hidden = false;
+      } finally {
+        submit.disabled = false;
+        submit.textContent = label;
+      }
+    });
+
+    document.querySelector('[data-form-again]')?.addEventListener('click', () => {
+      form.reset();
+      success.hidden = true;
+      form.hidden = false;
+      form.querySelector<HTMLInputElement>('input[name="nom"]')?.focus();
+    });
+
+    // Variante sans e-mail : le contenu du formulaire part dans un message WhatsApp.
+    form.querySelector('[data-form-wa]')?.addEventListener('click', () => {
+      if (!form.reportValidity()) return;
+      const values: Record<string, string> = {
+        nom: field('nom'),
+        tel: field('telephone'),
+        programme: select.value || (form.dataset.none ?? ''),
+        message: field('message') + (visit.checked ? ` ${form.dataset.waVisit}.` : ''),
+      };
+      const text = (form.dataset.waTemplate ?? '').replace(/\{(\w+)\}/g, (_, key: string) => values[key] ?? '');
+      window.open(`https://wa.me/${form.dataset.waNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    });
+  }
+</script>

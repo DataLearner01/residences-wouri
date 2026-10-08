@@ -1,0 +1,210 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import BrandIcon from './BrandIcon.astro';
+import WhatsAppButton from './WhatsAppButton.astro';
+import { href, langs, useT, type Lang, type RouteKey } from '../i18n';
+import { waLink } from '../lib/format';
+
+interface Props {
+  lang: Lang;
+  alternates: Record<Lang, string>;
+  current?: RouteKey;
+  waMessage: string;
+}
+
+const { lang, alternates, current, waMessage } = Astro.props;
+const t = useT(lang);
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const items = ['home', 'programmes', 'avancement', 'realisations', 'about', 'news', 'contact'] as const;
+---
+
+<header data-header class="site-header fixed inset-x-0 top-0 z-40">
+  <div class="container-page flex h-[4.75rem] items-center justify-between gap-4">
+    <a href={href(lang, 'home')} aria-label={t.common.logoAlt} class="rounded-sm">
+      <Logo />
+    </a>
+
+    <nav aria-label={t.nav.label} class="hidden xl:block">
+      <ul class="flex items-center gap-6 whitespace-nowrap text-[0.95rem] font-medium">
+        {
+          items.map((key) => (
+            <li>
+              <a href={href(lang, key)} aria-current={current === key ? 'page' : undefined} class="nav-link">
+                {t.nav[key]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <div class="lang-switch" role="group" aria-label={t.lang.label}>
+        {
+          langs.map((l) =>
+            l === lang ? (
+              <span aria-current="true">{l.toUpperCase()}</span>
+            ) : (
+              <a href={alternates[l]} hreflang={l} lang={l}>
+                {l.toUpperCase()}
+                <span class="sr-only">, {t.lang.switchTo}</span>
+              </a>
+            ),
+          )
+        }
+      </div>
+      {/* Entre 1280 et 1400 px, le menu complet laisse peu de place : le libellé est raccourci. */}
+      <a
+        href={waLink(waMessage)}
+        target="_blank"
+        rel="noopener"
+        aria-label={t.wa.header}
+        class="btn btn-whatsapp hidden !min-h-11 whitespace-nowrap !py-2 lg:inline-flex"
+        data-aimant
+      >
+        <BrandIcon name="whatsapp" size={19} />
+        <span class="xl:max-[1399px]:hidden">{t.wa.header}</span>
+        <span class="hidden xl:max-[1399px]:inline">WhatsApp</span>
+      </a>
+      <button
+        type="button"
+        class="grid h-11 w-11 place-items-center rounded-full hover:bg-encre/10 xl:hidden"
+        data-menu-open
+        aria-expanded="false"
+        aria-controls="menu-mobile"
+        aria-label={t.nav.open}
+      >
+        <Icon name="menu" size={26} />
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="menu-mobile" data-menu hidden class="fixed inset-0 z-50 overflow-y-auto bg-encre text-white">
+  <div class="container-page flex h-[4.75rem] items-center justify-between">
+    <Logo />
+    <button
+      type="button"
+      class="grid h-11 w-11 place-items-center rounded-full hover:bg-white/10"
+      data-menu-close
+      aria-label={t.nav.close}
+    >
+      <Icon name="x" size={26} />
+    </button>
+  </div>
+  <nav aria-label={t.nav.label} class="container-page pb-12 pt-6">
+    <ul>
+      {
+        items.map((key) => (
+          <li>
+            <a
+              href={href(lang, key)}
+              aria-current={current === key ? 'page' : undefined}
+              class="menu-link titre block py-2 text-[2.1rem] leading-tight"
+            >
+              {t.nav[key]}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <WhatsAppButton message={waMessage} label={t.wa.header} class="mt-9 w-full" />
+    <a
+      href={alternates[other]}
+      hreflang={other}
+      lang={other}
+      class="mt-6 inline-flex items-center gap-2 py-2 font-medium underline decoration-white/40 underline-offset-4"
+    >
+      <Icon name="languages" size={20} />
+      {t.lang.switchTo}
+    </a>
+  </nav>
+</div>
+
+<style>
+  /* Transparent en haut de page, puis voile blanc dès que l'on défile. */
+  .site-header {
+    transition:
+      background-color 0.25s,
+      box-shadow 0.25s;
+  }
+  .site-header.is-stuck {
+    background-color: rgb(255 255 255 / 0.86);
+    box-shadow: 0 1px 0 rgb(21 24 26 / 0.08);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  /* Le soulignement d'un lien se déploie depuis la gauche. */
+  .nav-link {
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 0;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0.3rem;
+    height: 1.5px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease-out-doux);
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+  .menu-link[aria-current='page'] {
+    color: #979ca1;
+  }
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    border: 1px solid rgb(21 24 26 / 0.28);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .lang-switch > * {
+    display: grid;
+    place-items: center;
+    min-width: 2.5rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    transition: background-color 0.2s;
+  }
+  .lang-switch span {
+    background: var(--color-encre);
+    color: #fff;
+  }
+  .lang-switch a:hover {
+    background: rgb(21 24 26 / 0.1);
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-menu-close]');
+
+  // L'en-tête reçoit son voile dès qu'on fait défiler la page.
+  const onScroll = () => header?.classList.toggle('is-stuck', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  function setMenu(open: boolean) {
+    if (!menu || !openBtn || !closeBtn) return;
+    menu.hidden = !open;
+    openBtn.setAttribute('aria-expanded', String(open));
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    (open ? closeBtn : openBtn).focus();
+  }
+  openBtn?.addEventListener('click', () => setMenu(true));
+  closeBtn?.addEventListener('click', () => setMenu(false));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu && !menu.hidden) setMenu(false);
+  });
+</script>

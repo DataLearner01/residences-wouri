@@ -1,0 +1,43 @@
+---
+// Avancement d'un chantier : pourcentage, barre de progression et étape en cours.
+import { fill, useT, type Lang } from '../i18n';
+import { month, pct } from '../lib/format';
+import type { Programme } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  chantier: NonNullable<Programme['chantier']>;
+  label: string;
+}
+
+const { lang, chantier, label } = Astro.props;
+const t = useT(lang);
+const current = chantier.etapes.find((e) => e.statut === 'enCours') ?? chantier.etapes[chantier.etapes.length - 1];
+---
+
+<div data-reveal>
+  <p class="flex items-baseline gap-3">
+    <span class="titre text-[clamp(4rem,8vw,6.5rem)] leading-[0.9] tracking-[-0.055em]"
+      >{pct(chantier.avancement, lang)}</span
+    >
+    <span class="text-sm text-encre-600">{t.avancement.done}</span>
+  </p>
+  <div
+    class="progress mt-6"
+    role="progressbar"
+    aria-label={label}
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow={chantier.avancement}
+    aria-valuetext={fill(t.avancement.progressAria, { n: chantier.avancement })}
+    style={`--p:${chantier.avancement}%`}
+  >
+    <span></span>
+  </div>
+  <p class="mt-4 text-[0.95rem]">
+    <strong class="font-medium">{t.avancement.steps[current.cle]}.</strong>{' '}
+    <span class="text-encre-600"
+      >{fill(t.avancement.stepDate[current.statut], { date: month(current.date, lang) })}.</span
+    >
+  </p>
+</div>

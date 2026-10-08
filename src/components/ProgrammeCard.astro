@@ -1,0 +1,115 @@
+---
+import Img from './Img.astro';
+import Icon from './Icon.astro';
+import StatusBadge from './StatusBadge.astro';
+import { href, tr, useT, type Lang } from '../i18n';
+import { fcfa } from '../lib/format';
+import type { Programme } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  programme: Programme;
+  heading?: 'h2' | 'h3';
+}
+
+const { lang, programme: p, heading: Heading = 'h3' } = Astro.props;
+const t = useT(lang);
+---
+
+<article
+  class="carte group relative flex flex-col"
+  data-programme
+  data-statut={p.statut}
+  data-quartier={p.quartier}
+  data-types={p.types.join(' ')}
+  data-prix={p.prixMin}
+  data-pointeur="0.3"
+  data-pointeur-saut
+>
+  <StatusBadge lang={lang} statut={p.statut} class="self-start" />
+  <Heading class="h-card mt-4 min-h-[2.28em]">
+    <a href={href(lang, 'programmes', p.slug)} class="after:absolute after:inset-0">{p.nom}</a><span class="ton-doux"
+      >, {p.quartier}</span
+    >
+  </Heading>
+
+  {/* Au survol, la photo suit légèrement le curseur et une pilule « Voir » l'accompagne. */}
+  <div class="vignette relative mt-5 overflow-hidden bg-brume-200" data-pointeur-zone>
+    <Img
+      src={p.image}
+      alt={tr(p.galerie[0].alt, lang)}
+      widths={[400, 640, 960]}
+      sizes="(min-width: 64rem) 30vw, (min-width: 40rem) 46vw, 92vw"
+      class="aspect-[4/3] h-auto w-full object-cover"
+    />
+    <span class="curseur" aria-hidden="true">
+      {t.common.see}
+      <Icon name="arrow-up-right" size={16} />
+    </span>
+  </div>
+
+  <div class="flex flex-1 flex-col pt-5">
+    {
+      p.statut === 'livre' ? (
+        <p class="titre text-[1.7rem] leading-tight">{tr(p.livraison, lang)}</p>
+      ) : (
+        <p>
+          <span class="text-sm text-encre-600">{t.common.from}</span>
+          <span class="titre block text-[1.7rem] leading-tight">{fcfa(p.prixMin, lang)}</span>
+        </p>
+      )
+    }
+    <div class="mt-4 grid gap-1.5 border-t border-brume-300 pt-4 text-[0.95rem]">
+      <p>{tr(p.typologie, lang)}</p>
+      <p class="flex items-center gap-2 text-encre-600">
+        <span class:list={['dot', p.disponibles ? 'dot-disponible' : 'dot-vendu']}></span>
+        {t.availability(p.disponibles, p.total)}
+      </p>
+    </div>
+  </div>
+</article>
+
+<style>
+  .vignette :global(img) {
+    transition: transform 0.9s var(--ease-out-doux);
+  }
+  .carte:hover .vignette :global(img),
+  .carte:focus-within .vignette :global(img) {
+    transform: scale(1.06) translate(calc(var(--dx, 0) * -1.4%), calc(var(--dy, 0) * -1.4%));
+  }
+  .curseur {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    background: var(--color-encre);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    /* La position suit le curseur sans transition ; seule l'apparition est animée. */
+    translate: calc(var(--mx, 0px) - 50%) calc(var(--my, 0px) - 50%);
+    scale: 0.5;
+    transition:
+      opacity 0.25s,
+      scale 0.35s var(--ease-out-doux);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .curseur {
+      display: inline-flex;
+    }
+    .carte:has(.vignette.is-survol) a {
+      cursor: none;
+    }
+    .vignette.is-survol .curseur {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+</style>

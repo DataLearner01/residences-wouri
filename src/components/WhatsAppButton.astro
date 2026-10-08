@@ -1,0 +1,27 @@
+---
+// Bouton WhatsApp avec message pré-rempli. Seul composant à utiliser le vert WhatsApp.
+import BrandIcon from './BrandIcon.astro';
+import { waLink } from '../lib/format';
+
+interface Props {
+  message: string;
+  label: string;
+  /** Numéro d'un membre de l'équipe ; par défaut, le numéro du site. */
+  number?: string;
+  ariaLabel?: string;
+  class?: string;
+}
+
+const { message, label, number, ariaLabel, class: className } = Astro.props;
+---
+
+<a
+  href={waLink(message, number)}
+  target="_blank"
+  rel="noopener"
+  class:list={['btn btn-whatsapp', className]}
+  aria-label={ariaLabel}
+>
+  <BrandIcon name="whatsapp" size={20} />
+  <span>{label}</span>
+</a>

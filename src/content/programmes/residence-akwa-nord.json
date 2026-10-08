@@ -1,0 +1,508 @@
+{
+  "nom": "Résidence Akwa Nord",
+  "ordre": 4,
+  "aLaUne": false,
+  "quartier": "Akwa",
+  "statut": "livre",
+  "anneeLivraison": 2024,
+  "types": [
+    "appartement"
+  ],
+  "typologie": {
+    "fr": "Studios, F2 et F3",
+    "en": "Studios, 1 and 2-bedroom apartments"
+  },
+  "accroche": {
+    "fr": "Vingt-huit studios et appartements livrés en 2024, dans le quartier d’affaires d’Akwa.",
+    "en": "Twenty-eight studios and apartments completed in 2024, in the Akwa business district."
+  },
+  "description": {
+    "fr": [
+      "La Résidence Akwa Nord compte 28 studios et appartements sur sept niveaux, dans le nord d’Akwa, à deux pas des bureaux et des commerces.",
+      "Livrée en mars 2024, à la date prévue au contrat, elle est aujourd’hui entièrement vendue et habitée. Une partie des logements est louée par leurs propriétaires.",
+      "Nous la présentons ici comme exemple : mêmes méthodes et mêmes exigences que pour nos programmes en cours."
+    ],
+    "en": [
+      "Résidence Akwa Nord has 28 studios and apartments over seven floors, in the north of Akwa, a short walk from offices and shops.",
+      "Completed in March 2024, on the date set in the contract, it is now fully sold and lived in. Some of the homes are let by their owners.",
+      "We show it here as an example: the same methods and the same standards as our current developments."
+    ]
+  },
+  "livraison": {
+    "fr": "Livré en mars 2024",
+    "en": "Completed in March 2024"
+  },
+  "image": "photo-a-remplacer-akwa-facade.jpg",
+  "galerie": [
+    {
+      "fichier": "photo-a-remplacer-akwa-facade.jpg",
+      "alt": {
+        "fr": "Façade de la Résidence Akwa Nord en fin de journée",
+        "en": "Front of Résidence Akwa Nord at dusk"
+      }
+    },
+    {
+      "fichier": "photo-a-remplacer-akwa-sejour.jpg",
+      "alt": {
+        "fr": "Séjour d’un appartement F2 avec vue sur la ville",
+        "en": "Living room of a 1-bedroom apartment with city view"
+      }
+    },
+    {
+      "fichier": "photo-a-remplacer-akwa-rue.jpg",
+      "alt": {
+        "fr": "La résidence vue depuis la rue",
+        "en": "The residence seen from the street"
+      }
+    },
+    {
+      "fichier": "photo-a-remplacer-akwa-terrasse.jpg",
+      "alt": {
+        "fr": "Vue sur Douala depuis les étages supérieurs",
+        "en": "View over Douala from the upper floors"
+      }
+    }
+  ],
+  "atouts": [
+    {
+      "icone": "arrow-up-down",
+      "fr": "Ascenseur",
+      "en": "Lift"
+    },
+    {
+      "icone": "plug-zap",
+      "fr": "Groupe électrogène",
+      "en": "Generator"
+    },
+    {
+      "icone": "droplets",
+      "fr": "Forage et bâche à eau",
+      "en": "Borehole and water tank"
+    },
+    {
+      "icone": "shield-check",
+      "fr": "Gardiennage et contrôle d’accès",
+      "en": "Security and access control"
+    },
+    {
+      "icone": "car",
+      "fr": "Parking en sous-sol",
+      "en": "Basement parking"
+    },
+    {
+      "icone": "route",
+      "fr": "Accès par route bitumée",
+      "en": "Tarmac road access"
+    }
+  ],
+  "localisation": {
+    "texte": {
+      "fr": "Nord d’Akwa, au centre de Douala.",
+      "en": "North Akwa, in central Douala."
+    },
+    "mapsQuery": "Akwa, Douala, Cameroun",
+    "lat": 4.053,
+    "lng": 9.701,
+    "proximites": [
+      {
+        "fr": "Bureaux et banques d’Akwa accessibles à pied",
+        "en": "Akwa offices and banks within walking distance"
+      },
+      {
+        "fr": "Marchés et commerces du centre-ville",
+        "en": "City-centre markets and shops"
+      },
+      {
+        "fr": "Bonanjo à 10 minutes",
+        "en": "Bonanjo 10 minutes away"
+      }
+    ]
+  },
+  "paiement": {
+    "fr": [
+      "Programme entièrement vendu.",
+      "Les acheteurs ont réglé 30 % à la réservation, 60 % au fil du chantier et 10 % à la remise des clés."
+    ],
+    "en": [
+      "This development is fully sold.",
+      "Buyers paid 30% on reservation, 60% as the build progressed and 10% on handover of the keys."
+    ]
+  },
+  "brochure": "brochure-residence-akwa-nord.pdf",
+  "plan": {
+    "type": "etages",
+    "groupes": [
+      {
+        "cle": "A",
+        "fr": "Résidence Akwa Nord",
+        "en": "Résidence Akwa Nord"
+      }
+    ]
+  },
+  "unites": [
+    {
+      "ref": "AKN-01",
+      "type": "studio",
+      "surface": 32,
+      "niveau": {
+        "fr": "Rez-de-chaussée",
+        "en": "Ground floor"
+      },
+      "groupe": "A",
+      "rang": 0,
+      "prix": 20000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-02",
+      "type": "studio",
+      "surface": 34,
+      "niveau": {
+        "fr": "Rez-de-chaussée",
+        "en": "Ground floor"
+      },
+      "groupe": "A",
+      "rang": 0,
+      "prix": 21000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-03",
+      "type": "f2",
+      "surface": 55,
+      "niveau": {
+        "fr": "Rez-de-chaussée",
+        "en": "Ground floor"
+      },
+      "groupe": "A",
+      "rang": 0,
+      "prix": 34000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-04",
+      "type": "f3",
+      "surface": 78,
+      "niveau": {
+        "fr": "Rez-de-chaussée",
+        "en": "Ground floor"
+      },
+      "groupe": "A",
+      "rang": 0,
+      "prix": 48000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-11",
+      "type": "studio",
+      "surface": 32,
+      "niveau": {
+        "fr": "1er étage",
+        "en": "1st floor"
+      },
+      "groupe": "A",
+      "rang": 1,
+      "prix": 20400000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-12",
+      "type": "studio",
+      "surface": 34,
+      "niveau": {
+        "fr": "1er étage",
+        "en": "1st floor"
+      },
+      "groupe": "A",
+      "rang": 1,
+      "prix": 21400000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-13",
+      "type": "f2",
+      "surface": 55,
+      "niveau": {
+        "fr": "1er étage",
+        "en": "1st floor"
+      },
+      "groupe": "A",
+      "rang": 1,
+      "prix": 34600000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-14",
+      "type": "f3",
+      "surface": 78,
+      "niveau": {
+        "fr": "1er étage",
+        "en": "1st floor"
+      },
+      "groupe": "A",
+      "rang": 1,
+      "prix": 48800000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-21",
+      "type": "studio",
+      "surface": 32,
+      "niveau": {
+        "fr": "2e étage",
+        "en": "2nd floor"
+      },
+      "groupe": "A",
+      "rang": 2,
+      "prix": 20800000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-22",
+      "type": "studio",
+      "surface": 34,
+      "niveau": {
+        "fr": "2e étage",
+        "en": "2nd floor"
+      },
+      "groupe": "A",
+      "rang": 2,
+      "prix": 21800000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-23",
+      "type": "f2",
+      "surface": 55,
+      "niveau": {
+        "fr": "2e étage",
+        "en": "2nd floor"
+      },
+      "groupe": "A",
+      "rang": 2,
+      "prix": 35200000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-24",
+      "type": "f3",
+      "surface": 78,
+      "niveau": {
+        "fr": "2e étage",
+        "en": "2nd floor"
+      },
+      "groupe": "A",
+      "rang": 2,
+      "prix": 49600000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-31",
+      "type": "studio",
+      "surface": 32,
+      "niveau": {
+        "fr": "3e étage",
+        "en": "3rd floor"
+      },
+      "groupe": "A",
+      "rang": 3,
+      "prix": 21200000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-32",
+      "type": "studio",
+      "surface": 34,
+      "niveau": {
+        "fr": "3e étage",
+        "en": "3rd floor"
+      },
+      "groupe": "A",
+      "rang": 3,
+      "prix": 22200000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-33",
+      "type": "f2",
+      "surface": 55,
+      "niveau": {
+        "fr": "3e étage",
+        "en": "3rd floor"
+      },
+      "groupe": "A",
+      "rang": 3,
+      "prix": 35800000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-34",
+      "type": "f3",
+      "surface": 78,
+      "niveau": {
+        "fr": "3e étage",
+        "en": "3rd floor"
+      },
+      "groupe": "A",
+      "rang": 3,
+      "prix": 50400000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-41",
+      "type": "studio",
+      "surface": 32,
+      "niveau": {
+        "fr": "4e étage",
+        "en": "4th floor"
+      },
+      "groupe": "A",
+      "rang": 4,
+      "prix": 21600000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-42",
+      "type": "studio",
+      "surface": 34,
+      "niveau": {
+        "fr": "4e étage",
+        "en": "4th floor"
+      },
+      "groupe": "A",
+      "rang": 4,
+      "prix": 22600000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-43",
+      "type": "f2",
+      "surface": 55,
+      "niveau": {
+        "fr": "4e étage",
+        "en": "4th floor"
+      },
+      "groupe": "A",
+      "rang": 4,
+      "prix": 36400000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-44",
+      "type": "f3",
+      "surface": 78,
+      "niveau": {
+        "fr": "4e étage",
+        "en": "4th floor"
+      },
+      "groupe": "A",
+      "rang": 4,
+      "prix": 51200000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-51",
+      "type": "studio",
+      "surface": 32,
+      "niveau": {
+        "fr": "5e étage",
+        "en": "5th floor"
+      },
+      "groupe": "A",
+      "rang": 5,
+      "prix": 22000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-52",
+      "type": "studio",
+      "surface": 34,
+      "niveau": {
+        "fr": "5e étage",
+        "en": "5th floor"
+      },
+      "groupe": "A",
+      "rang": 5,
+      "prix": 23000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-53",
+      "type": "f2",
+      "surface": 55,
+      "niveau": {
+        "fr": "5e étage",
+        "en": "5th floor"
+      },
+      "groupe": "A",
+      "rang": 5,
+      "prix": 37000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-54",
+      "type": "f3",
+      "surface": 78,
+      "niveau": {
+        "fr": "5e étage",
+        "en": "5th floor"
+      },
+      "groupe": "A",
+      "rang": 5,
+      "prix": 52000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-61",
+      "type": "studio",
+      "surface": 32,
+      "niveau": {
+        "fr": "6e étage",
+        "en": "6th floor"
+      },
+      "groupe": "A",
+      "rang": 6,
+      "prix": 22400000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-62",
+      "type": "studio",
+      "surface": 34,
+      "niveau": {
+        "fr": "6e étage",
+        "en": "6th floor"
+      },
+      "groupe": "A",
+      "rang": 6,
+      "prix": 23400000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-63",
+      "type": "f2",
+      "surface": 55,
+      "niveau": {
+        "fr": "6e étage",
+        "en": "6th floor"
+      },
+      "groupe": "A",
+      "rang": 6,
+      "prix": 37600000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "AKN-64",
+      "type": "f3",
+      "surface": 78,
+      "niveau": {
+        "fr": "6e étage",
+        "en": "6th floor"
+      },
+      "groupe": "A",
+      "rang": 6,
+      "prix": 52800000,
+      "statut": "vendu"
+    }
+  ]
+}

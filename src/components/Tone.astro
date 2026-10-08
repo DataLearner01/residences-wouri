@@ -1,0 +1,22 @@
+---
+// Phrase en deux tons : dans les textes, le passage entre [crochets] est composé en gris.
+// Sans crochets, « auto » grise tout ce qui suit la première phrase.
+interface Props {
+  text: string;
+  /** Gris plus soutenu, pour le texte courant (le gris clair est réservé aux grands titres). */
+  soft?: boolean;
+  auto?: boolean;
+}
+
+const { text, soft = false, auto = false } = Astro.props;
+let source = text;
+if (auto && !text.includes('[')) {
+  const end = text.search(/[.!?…] /);
+  if (end > -1) source = `${text.slice(0, end + 2)}[${text.slice(end + 2)}]`;
+}
+// Les morceaux d'indice impair sont ceux qui étaient entre crochets.
+const parts = source.split(/\[([^\]]*)\]/);
+const tone = soft ? 'ton-doux' : 'ton-clair';
+---
+
+{parts.map((part, i) => (i % 2 ? <span class={tone}>{part}</span> : part))}

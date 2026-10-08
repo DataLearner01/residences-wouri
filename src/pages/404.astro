@@ -1,0 +1,36 @@
+---
+// Page d'erreur unique, servie pour les deux langues : elle affiche donc les deux.
+import Base from '../layouts/Base.astro';
+import { href, langs, useT } from '../i18n';
+
+const alternates = { fr: href('fr', 'home'), en: href('en', 'home') };
+const t = useT('fr');
+---
+
+<Base
+  lang="fr"
+  title={`${t.notFound.title} | Page not found`}
+  description={t.notFound.text}
+  alternates={alternates}
+  waMessage={t.wa.msg.home}
+  noindex
+>
+  <section>
+    <div class="container-page grid min-h-[70svh] content-center gap-12 pb-20 pt-36 md:grid-cols-2">
+      {
+        langs.map((lang) => {
+          const text = useT(lang).notFound;
+          return (
+            <div lang={lang}>
+              {lang === 'fr' ? <h1 class="h-page">{text.title}</h1> : <h2 class="h-page">{text.title}</h2>}
+              <p class="lead ton-doux mt-5">{text.text}</p>
+              <a href={href(lang, 'home')} class="btn btn-primary mt-8">
+                {text.home}
+              </a>
+            </div>
+          );
+        })
+      }
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,289 @@
+{
+  "nom": "Cité Wouri Bonapriso",
+  "ordre": 2,
+  "aLaUne": true,
+  "quartier": "Bonapriso",
+  "statut": "commercialisation",
+  "types": [
+    "villa"
+  ],
+  "typologie": {
+    "fr": "Villas de 4 et 5 chambres",
+    "en": "4 and 5-bedroom villas"
+  },
+  "accroche": {
+    "fr": "Six villas contemporaines dans une impasse privée et arborée de Bonapriso.",
+    "en": "Six contemporary villas on a private, tree-lined lane in Bonapriso."
+  },
+  "description": {
+    "fr": [
+      "Cité Wouri Bonapriso est une impasse privée de six villas, dans un quartier résidentiel recherché de Douala.",
+      "Chaque villa s’organise sur deux niveaux autour d’un grand séjour ouvert sur une terrasse et un jardin privatif. Les finitions se choisissent sur catalogue : sols, cuisine, salles d’eau.",
+      "Les villas sont vendues sur plan. Le gros œuvre des trois premières est en cours et la livraison est prévue en mars 2028."
+    ],
+    "en": [
+      "Cité Wouri Bonapriso is a private lane of six villas in a sought-after residential neighbourhood of Douala.",
+      "Each villa is laid out over two floors around a large living room that opens onto a terrace and a private garden. Finishes are chosen from a catalogue: flooring, kitchen, bathrooms.",
+      "The villas are sold off-plan. Structural works on the first three are under way and handover is planned for March 2028."
+    ]
+  },
+  "livraison": {
+    "fr": "Prévue en mars 2028",
+    "en": "Planned for March 2028"
+  },
+  "image": "photo-a-remplacer-bonapriso-villa.jpg",
+  "galerie": [
+    {
+      "fichier": "photo-a-remplacer-bonapriso-villa.jpg",
+      "alt": {
+        "fr": "Façade d’une villa de la Cité Wouri Bonapriso",
+        "en": "Front of a villa at Cité Wouri Bonapriso"
+      }
+    },
+    {
+      "fichier": "photo-a-remplacer-bonapriso-jardin.jpg",
+      "alt": {
+        "fr": "Villa et jardin privatif en fin de journée",
+        "en": "Villa and private garden at dusk"
+      }
+    },
+    {
+      "fichier": "photo-a-remplacer-bonapriso-sejour.jpg",
+      "alt": {
+        "fr": "Séjour d’une villa ouvert sur la terrasse",
+        "en": "Villa living room opening onto the terrace"
+      }
+    },
+    {
+      "fichier": "photo-a-remplacer-bonapriso-impasse.jpg",
+      "alt": {
+        "fr": "Impasse privée bordée de villas",
+        "en": "Private lane lined with villas"
+      }
+    }
+  ],
+  "atouts": [
+    {
+      "icone": "shield-check",
+      "fr": "Impasse privée avec poste de garde",
+      "en": "Private lane with gatehouse"
+    },
+    {
+      "icone": "droplets",
+      "fr": "Forage, bâche à eau et surpresseur",
+      "en": "Borehole, water tank and booster pump"
+    },
+    {
+      "icone": "plug-zap",
+      "fr": "Groupe électrogène insonorisé par villa",
+      "en": "Soundproofed generator for each villa"
+    },
+    {
+      "icone": "route",
+      "fr": "Voirie bitumée et éclairée",
+      "en": "Tarmac, lit roadway"
+    },
+    {
+      "icone": "car",
+      "fr": "Garage pour deux véhicules",
+      "en": "Garage for two cars"
+    },
+    {
+      "icone": "trees",
+      "fr": "Jardin privatif clos",
+      "en": "Enclosed private garden"
+    },
+    {
+      "icone": "waves",
+      "fr": "Piscine privative en option",
+      "en": "Optional private pool"
+    }
+  ],
+  "localisation": {
+    "texte": {
+      "fr": "Impasse privée à Bonapriso, à dix minutes de Bonanjo.",
+      "en": "A private lane in Bonapriso, ten minutes from Bonanjo."
+    },
+    "mapsQuery": "Bonapriso, Douala, Cameroun",
+    "lat": 4.022,
+    "lng": 9.702,
+    "proximites": [
+      {
+        "fr": "Écoles internationales et cliniques du quartier",
+        "en": "International schools and clinics nearby"
+      },
+      {
+        "fr": "Restaurants et commerces de Bonapriso",
+        "en": "Bonapriso restaurants and shops"
+      },
+      {
+        "fr": "Bonanjo, quartier des affaires, à 10 minutes",
+        "en": "Bonanjo business district, 10 minutes away"
+      },
+      {
+        "fr": "Aéroport international de Douala à environ 15 minutes",
+        "en": "Douala International Airport in about 15 minutes"
+      }
+    ]
+  },
+  "paiement": {
+    "fr": [
+      "20 % à la réservation, à la signature du contrat chez le notaire.",
+      "70 % en cinq appels de fonds, de la fin des fondations à la fin des finitions.",
+      "10 % à la remise des clés, après levée des réserves."
+    ],
+    "en": [
+      "20% on reservation, when the contract is signed at the notary’s.",
+      "70% in five staged payments, from the end of the foundations to the end of the finishes.",
+      "10% when the keys are handed over, once any snags are resolved."
+    ]
+  },
+  "brochure": "brochure-cite-wouri-bonapriso.pdf",
+  "chantier": {
+    "avancement": 35,
+    "miseAJour": "2026-09",
+    "etapes": [
+      {
+        "cle": "fondations",
+        "statut": "fait",
+        "date": "2026-04"
+      },
+      {
+        "cle": "grosOeuvre",
+        "statut": "enCours",
+        "date": "2026-05"
+      },
+      {
+        "cle": "finitions",
+        "statut": "aVenir",
+        "date": "2027-06"
+      },
+      {
+        "cle": "livraison",
+        "statut": "aVenir",
+        "date": "2028-03"
+      }
+    ],
+    "photos": [
+      {
+        "fichier": "photo-a-remplacer-chantier-bonapriso-2026-06.jpg",
+        "mois": "2026-06",
+        "legende": {
+          "fr": "Fondations des villas 1 à 3 terminées",
+          "en": "Foundations of villas 1 to 3 complete"
+        }
+      },
+      {
+        "fichier": "photo-a-remplacer-chantier-bonapriso-2026-08.jpg",
+        "mois": "2026-08",
+        "legende": {
+          "fr": "Élévation du rez-de-chaussée, villas 1 et 2",
+          "en": "Ground-floor walls going up, villas 1 and 2"
+        }
+      },
+      {
+        "fichier": "photo-a-remplacer-chantier-bonapriso-2026-09.jpg",
+        "mois": "2026-09",
+        "legende": {
+          "fr": "Dalle de l’étage coulée, villa 1",
+          "en": "First-floor slab poured, villa 1"
+        }
+      }
+    ]
+  },
+  "plan": {
+    "type": "lots",
+    "colonnes": 3,
+    "taille": "grand",
+    "voie": {
+      "fr": "Impasse privée",
+      "en": "Private lane"
+    },
+    "groupes": [
+      {
+        "cle": "nord",
+        "fr": "Côté nord",
+        "en": "North side"
+      },
+      {
+        "cle": "sud",
+        "fr": "Côté sud",
+        "en": "South side"
+      }
+    ]
+  },
+  "unites": [
+    {
+      "ref": "CWB-V1",
+      "type": "villa4",
+      "surface": 190,
+      "niveau": {
+        "fr": "Lot 1",
+        "en": "Plot 1"
+      },
+      "groupe": "nord",
+      "prix": 148000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "CWB-V2",
+      "type": "villa4",
+      "surface": 190,
+      "niveau": {
+        "fr": "Lot 2",
+        "en": "Plot 2"
+      },
+      "groupe": "nord",
+      "prix": 145000000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "CWB-V3",
+      "type": "villa5",
+      "surface": 240,
+      "niveau": {
+        "fr": "Lot 3",
+        "en": "Plot 3"
+      },
+      "groupe": "nord",
+      "prix": 185000000,
+      "statut": "vendu"
+    },
+    {
+      "ref": "CWB-V4",
+      "type": "villa4",
+      "surface": 195,
+      "niveau": {
+        "fr": "Lot 4",
+        "en": "Plot 4"
+      },
+      "groupe": "sud",
+      "prix": 150000000,
+      "statut": "reserve"
+    },
+    {
+      "ref": "CWB-V5",
+      "type": "villa5",
+      "surface": 240,
+      "niveau": {
+        "fr": "Lot 5",
+        "en": "Plot 5"
+      },
+      "groupe": "sud",
+      "prix": 189000000,
+      "statut": "disponible"
+    },
+    {
+      "ref": "CWB-V6",
+      "type": "villa5",
+      "surface": 255,
+      "niveau": {
+        "fr": "Lot 6",
+        "en": "Plot 6"
+      },
+      "groupe": "sud",
+      "prix": 198000000,
+      "statut": "vendu"
+    }
+  ]
+}

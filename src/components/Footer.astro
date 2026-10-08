@@ -1,0 +1,139 @@
+---
+import Icon from './Icon.astro';
+import BrandIcon from './BrandIcon.astro';
+import { site } from '../config/site';
+import { fill, href, useT, type Lang } from '../i18n';
+import { hoursLines, waLink } from '../lib/format';
+
+interface Props {
+  lang: Lang;
+  waMessage: string;
+}
+
+const { lang, waMessage } = Astro.props;
+const t = useT(lang);
+const links = ['programmes', 'avancement', 'realisations', 'about', 'news', 'contact'] as const;
+const label = 'text-[0.8125rem] font-normal tracking-normal text-white/55';
+---
+
+<footer class="bg-nuit text-white">
+  <div class="container-page pt-16 md:pt-24">
+    <div class="grid gap-14 lg:grid-cols-[0.8fr_1.5fr] lg:gap-16">
+      <nav aria-label={t.footer.info}>
+        <ul class="titre grid grid-cols-2 gap-x-8 gap-y-1.5 text-[1.5rem] leading-tight md:text-[1.7rem]">
+          {
+            links.map((key) => (
+              <li>
+                <a href={href(lang, key)} class="pied-lien inline-block py-1">
+                  {t.nav[key]}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="grid gap-x-10 gap-y-9 border-t border-white/15 pt-9 sm:grid-cols-[1fr_1.35fr_1fr] lg:border-0 lg:pt-0">
+        <div>
+          <h2 class={label}>{t.contact.address}</h2>
+          <address class="mt-2 not-italic">
+            {site.address.street}<br />
+            {site.address.district}, {site.address.city}
+          </address>
+        </div>
+        <div>
+          <h2 class={label}>{t.footer.contact}</h2>
+          <ul class="mt-2 space-y-1">
+            <li>
+              <a href={waLink(waMessage)} target="_blank" rel="noopener" class="pied-lien inline-flex items-center gap-2">
+                <BrandIcon name="whatsapp" size={16} class="text-whatsapp" />
+                <span>WhatsApp {site.whatsapp.display}</span>
+              </a>
+            </li>
+            <li>{site.phone}</li>
+            <li>
+              <a href={`mailto:${site.email}`} class="pied-lien [overflow-wrap:anywhere]">{site.email}</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2 class={label}>{t.footer.hours}</h2>
+          <ul class="mt-2 space-y-1">
+            {
+              hoursLines(lang).map((line) => (
+                <li>
+                  {line.label}
+                  {line.time && <span class="block text-white/70">{line.time}</span>}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {/* Le nom en très grand : il occupe toute la largeur, quelle que soit la taille de l'écran. */}
+    <svg class="geant mt-14 block w-full md:mt-20" viewBox="0 0 1000 150" aria-hidden="true" focusable="false">
+      <text x="0" y="122" textLength="1000" lengthAdjust="spacingAndGlyphs">{site.name}</text>
+    </svg>
+
+    <div class="flex flex-col gap-6 border-t border-white/15 pb-24 pt-6 text-sm lg:flex-row lg:items-center lg:justify-between lg:pb-7">
+      <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 text-white/70">
+        <li>{fill(t.footer.rights, { annee: new Date().getFullYear() })}</li>
+        <li>
+          <a href={href(lang, 'legal')} class="pied-lien">{t.footer.legal}</a>
+        </li>
+        <li>
+          <a href={href(lang, 'privacy')} class="pied-lien">{t.footer.privacy}</a>
+        </li>
+      </ul>
+      <p class="inline-flex items-center gap-2 text-white/70">
+        <Icon name="info" size={16} />
+        {t.common.demoNotice}
+      </p>
+      <div class="flex items-center gap-3">
+        <h2 class="sr-only">{t.footer.follow}</h2>
+        <ul class="flex gap-2">
+          {
+            site.socials.map((social) => (
+              <li>
+                <a
+                  href={social.url}
+                  rel="noopener nofollow"
+                  target="_blank"
+                  aria-label={fill(t.footer.socialDemo, { reseau: social.label })}
+                  title={fill(t.footer.socialDemo, { reseau: social.label })}
+                  class="grid h-11 w-11 place-items-center rounded-full border border-white/25 transition-colors hover:bg-white hover:text-encre"
+                >
+                  <BrandIcon name={social.key} size={17} />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .pied-lien {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 0.2s;
+  }
+  .pied-lien:hover {
+    text-decoration-color: currentColor;
+  }
+  .geant text {
+    fill: currentColor;
+    font-size: 124px;
+    font-weight: 700;
+    letter-spacing: -0.055em;
+  }
+  footer :focus-visible {
+    outline-color: #9fc3ff;
+  }
+</style>

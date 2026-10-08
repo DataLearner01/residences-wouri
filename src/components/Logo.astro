@@ -1,0 +1,36 @@
+---
+// Logo : une arche (la résidence) au-dessus d'une vague (le Wouri), suivie du nom.
+import { site } from '../config/site';
+
+interface Props {
+  /** Taille du texte ; le signe suit. */
+  class?: string;
+}
+
+const { class: className = 'text-[1.3rem]' } = Astro.props;
+---
+
+<span class:list={['logo flex items-center gap-[0.45em] font-semibold leading-none', className]}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 32 32"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    class="h-[1.3em] w-[1.3em] shrink-0"
+  >
+    <path d="M6 20v-8a10 10 0 0 1 20 0v8"></path>
+    <path d="M12 20v-7a4 4 0 0 1 8 0v7"></path>
+    <path d="M3 26.5c2.2-2 4.3-2 6.5 0s4.3 2 6.5 0 4.3-2 6.5 0 4.3 2 6.5 0"></path>
+  </svg>
+  <span class="whitespace-nowrap">{site.name}</span>
+</span>
+
+<style>
+  .logo {
+    letter-spacing: -0.045em;
+  }
+</style>

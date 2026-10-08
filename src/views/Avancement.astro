@@ -1,0 +1,153 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Img from '../components/Img.astro';
+import Icon from '../components/Icon.astro';
+import SiteProgress from '../components/SiteProgress.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import Tone from '../components/Tone.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { fill, href, tr, useT, type Lang } from '../i18n';
+import { month } from '../lib/format';
+import { getProgrammes } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  alternates: Record<Lang, string>;
+}
+
+const { lang, alternates } = Astro.props;
+const t = useT(lang);
+const a = t.avancement;
+const sites = (await getProgrammes()).filter((p) => p.chantier);
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+---
+
+<Base
+  lang={lang}
+  title={a.metaTitle}
+  description={a.metaDescription}
+  alternates={alternates}
+  waMessage={t.wa.msg.avancement}
+  current="avancement"
+>
+  <PageHead title={a.title} intro={a.intro} />
+
+  {
+    sites.map((p, i) => {
+      const c = p.chantier!;
+      return (
+        <section id={p.slug} class:list={['section scroll-mt-16', i % 2 === 1 && 'bg-brume']}>
+          <div class="container-page">
+            <div class="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
+              <div>
+                <StatusBadge lang={lang} statut={p.statut} />
+                <h2 class="h-section mt-5">{p.nom}<span class="ton-clair">, {p.quartier}</span></h2>
+                <div class="mt-10">
+                  <SiteProgress lang={lang} chantier={c} label={p.nom} />
+                </div>
+                <p class="mt-5 text-sm text-encre-600">
+                  {fill(a.lastUpdate, { date: month(c.miseAJour, lang) })}
+                </p>
+                <a href={href(lang, 'programmes', p.slug)} class="link mt-6 inline-block">
+                  {t.common.seeProgramme}
+                </a>
+              </div>
+
+              <div>
+                <h3 class="text-[0.8125rem] font-normal tracking-normal text-encre-600">{a.timeline}</h3>
+                <ol class="timeline mt-5">
+                  {c.etapes.map((step) => (
+                    <li class={`step step-${step.statut}`}>
+                      <span class="marker" aria-hidden="true">
+                        {step.statut === 'fait' && <Icon name="check" size={14} />}
+                      </span>
+                      <span class="block titre text-[1.35rem] leading-tight">{a.steps[step.cle]}</span>
+                      <span class="mt-1 block text-[0.95rem] text-encre-600">
+                        {fill(a.stepDate[step.statut], { date: month(step.date, lang) })}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+
+            <h3 class="mt-14 text-[0.8125rem] font-normal tracking-normal text-encre-600">{a.photos}</h3>
+            <ul class="mt-5 grid gap-x-6 gap-y-8 xs:grid-cols-2 lg:grid-cols-3">
+              {[...c.photos].reverse().map((shot) => (
+                <li>
+                  <figure>
+                    <Img
+                      src={shot.fichier}
+                      alt={`${p.nom}, ${month(shot.mois, lang)} : ${tr(shot.legende, lang)}`}
+                      widths={[400, 640, 960]}
+                      sizes="(min-width: 64rem) 30vw, (min-width: 26rem) 46vw, 92vw"
+                      class="aspect-[3/2] h-auto w-full bg-brume-200 object-cover"
+                    />
+                    <figcaption class="mt-3">
+                      <span class="block font-semibold">{capitalize(month(shot.mois, lang))}</span>
+                      <span class="text-[0.95rem] text-encre-600">{tr(shot.legende, lang)}</span>
+                    </figcaption>
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <section class="bande-nuit" data-pointeur="0.12" data-pointeur-saut>
+    <div class="container-page section grid items-center gap-9 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
+      <div>
+        <h2 class="h-section"><Tone text={a.promiseTitle} /></h2>
+        <p class="lead mt-6 max-w-xl"><Tone text={a.promiseText} soft auto /></p>
+      </div>
+      <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+        <WhatsAppButton message={t.wa.msg.avancement} label={t.wa.write} />
+        <a href={`${href(lang, 'contact')}?visite=1`} class="btn btn-light">{t.common.visit}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Frise chronologique : une vraie séquence, d'où la liste ordonnée et le trait continu. */
+  .timeline {
+    border-left: 2px solid var(--color-brume-300);
+    margin-left: 0.7rem;
+  }
+  .step {
+    position: relative;
+    padding: 0 0 1.9rem 1.9rem;
+  }
+  .step:last-child {
+    padding-bottom: 0;
+  }
+  .marker {
+    position: absolute;
+    left: calc(-0.7rem - 1px);
+    top: 0.15rem;
+    display: grid;
+    place-items: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border: 2px solid var(--color-brume-300);
+    border-radius: 999px;
+    background: #fff;
+    color: #fff;
+  }
+  .step-fait .marker {
+    border-color: var(--color-encre);
+    background: var(--color-encre);
+  }
+  .step-enCours .marker {
+    border-color: var(--color-encre);
+    background: #fff;
+    box-shadow: inset 0 0 0 4px #fff, inset 0 0 0 1rem var(--color-encre);
+  }
+  .step-aVenir {
+    color: var(--color-encre-600);
+  }
+</style>

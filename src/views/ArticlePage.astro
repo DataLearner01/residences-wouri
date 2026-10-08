@@ -1,0 +1,111 @@
+---
+import { getImage } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import Icon from '../components/Icon.astro';
+import Img from '../components/Img.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { site } from '../config/site';
+import { fill, frTypo, href, typo, useT, type Lang } from '../i18n';
+import { fullDate } from '../lib/format';
+import { getArticles } from '../lib/content';
+import { photo } from '../lib/photos';
+
+interface Props {
+  lang: Lang;
+  alternates: Record<Lang, string>;
+  slug: string;
+}
+
+const { lang, alternates, slug } = Astro.props;
+const t = useT(lang);
+const articles = await getArticles(lang);
+const article = articles.find((a) => a.slug === slug)!;
+const others = articles.filter((a) => a.slug !== slug);
+const { Content } = await render(article);
+// En français, on soigne la typographie du texte déjà converti en HTML
+// (espace insécable avant : ; ? ! et dans les guillemets), balise par balise.
+const html = article.rendered?.html;
+const typeset = lang === 'fr' && html ? html.replace(/>([^<]+)</g, (_, text: string) => `>${frTypo(text)}<`) : null;
+const { date, image, imageAlt } = article.data;
+const titre = typo(article.data.titre, lang);
+const description = typo(article.data.description, lang);
+
+const waMessage = fill(t.wa.msg.article, { titre });
+const share = await getImage({ src: photo(image), width: 1200, format: 'jpg' });
+const abs = (path: string) => new URL(path, Astro.site).href;
+const isoDate = date.toISOString().slice(0, 10);
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: titre,
+    description,
+    image: abs(share.src),
+    datePublished: isoDate,
+    inLanguage: lang,
+    mainEntityOfPage: abs(alternates[lang]),
+    author: { '@type': 'Organization', name: site.name },
+    publisher: { '@id': abs('/#organisation') },
+  },
+];
+---
+
+<Base
+  lang={lang}
+  title={`${titre} | ${site.name}`}
+  description={description}
+  alternates={alternates}
+  waMessage={waMessage}
+  current="news"
+  image={share.src}
+  schema={schema}
+>
+  <section>
+    <div class="container-page pb-8 pt-28 md:pb-10 md:pt-40">
+      <a href={href(lang, 'news')} class="link inline-flex items-center gap-2 text-sm font-normal">
+        <Icon name="arrow-left" size={16} />
+        {t.news.back}
+      </a>
+      <h1 class="h-section mt-7 max-w-4xl">{titre}</h1>
+      <p class="mt-6 text-[0.95rem] text-encre-600">
+        <time datetime={isoDate}>{fullDate(date, lang)}</time>
+        <span class="ml-4">{fill(t.news.minutes, { n: article.minutes })}</span>
+      </p>
+    </div>
+  </section>
+
+  <article class="container-page pb-16 pt-8 md:pb-24 md:pt-12">
+    <Img
+      src={image}
+      alt={imageAlt}
+      widths={[480, 800, 1200, 1600]}
+      sizes="(min-width: 68rem) 60rem, 92vw"
+      eager
+      class="aspect-[16/9] h-auto w-full max-w-[60rem] bg-brume-200 object-cover"
+    />
+    <div class="prose mt-10">
+      <p class="lead">{description}</p>
+      {typeset ? <Fragment set:html={typeset} /> : <Content />}
+    </div>
+
+    <p class="mt-10 max-w-[42rem] border-l-2 border-brume-300 pl-4 text-sm text-encre-600">{t.news.disclaimer}</p>
+
+    <aside class="bande-nuit mt-12 max-w-[42rem] p-7 md:p-10" data-pointeur="0.12" data-pointeur-saut>
+      <h2 class="text-[1.7rem] leading-tight">{t.news.endTitle}</h2>
+      <p class="ton-doux mt-2">{t.news.endText}</p>
+      <WhatsAppButton message={waMessage} label={t.wa.write} class="mt-6" />
+    </aside>
+  </article>
+
+  <section class="section bg-brume">
+    <div class="container-page">
+      <h2 class="h-section">{t.news.others}</h2>
+      <div class="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        {others.map((other) => <ArticleCard lang={lang} article={other} heading="h3" />)}
+      </div>
+    </div>
+  </section>
+</Base>

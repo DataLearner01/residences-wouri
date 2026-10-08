@@ -1,0 +1,25 @@
+---
+// Logos de marques (WhatsApp, réseaux sociaux), issus de Simple Icons.
+import simple from '@iconify-json/simple-icons/icons.json';
+
+interface Props {
+  name: 'whatsapp' | 'facebook' | 'instagram' | 'linkedin';
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 20, class: className } = Astro.props;
+const icon = (simple.icons as Record<string, { body: string }>)[name];
+if (!icon) throw new Error(`Logo introuvable : « ${name} »`);
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  class:list={['shrink-0', className]}
+  aria-hidden="true"
+  focusable="false"
+  set:html={icon.body}
+/>

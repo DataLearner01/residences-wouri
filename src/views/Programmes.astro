@@ -1,0 +1,138 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import ProgrammeCard from '../components/ProgrammeCard.astro';
+import { fill, useT, type Lang } from '../i18n';
+import { fcfa } from '../lib/format';
+import { getProgrammes } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  alternates: Record<Lang, string>;
+}
+
+const { lang, alternates } = Astro.props;
+const t = useT(lang);
+const f = t.programmes.filters;
+const programmes = await getProgrammes();
+const quartiers = [...new Set(programmes.map((p) => p.quartier))].sort();
+const budgets = [15_000_000, 40_000_000, 80_000_000, 150_000_000, 200_000_000];
+const countText = (n: number) => fill(n === 1 ? t.programmes.countOne : t.programmes.countOther, { n });
+---
+
+<Base
+  lang={lang}
+  title={t.programmes.metaTitle}
+  description={t.programmes.metaDescription}
+  alternates={alternates}
+  waMessage={t.wa.msg.programmes}
+  current="programmes"
+>
+  <PageHead title={t.programmes.title} intro={t.programmes.intro} />
+
+  <section class="container-page pb-20 pt-8 md:pb-28 md:pt-10">
+    <form data-filters class=" border border-brume-200 bg-brume p-5 md:p-6">
+      <fieldset class="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(4,minmax(0,1fr))_auto]">
+        <legend class="sr-only">{f.legend}</legend>
+        <div>
+          <label class="field-label" for="f-statut">{f.status}</label>
+          <select class="field" id="f-statut" name="statut">
+            <option value="">{f.allStatus}</option>
+            <option value="commercialisation">{t.status.commercialisation}</option>
+            <option value="construction">{t.status.construction}</option>
+            <option value="livre">{t.status.livre}</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="f-quartier">{f.district}</label>
+          <select class="field" id="f-quartier" name="quartier">
+            <option value="">{f.allDistricts}</option>
+            {quartiers.map((q) => <option value={q}>{q}</option>)}
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="f-type">{f.type}</label>
+          <select class="field" id="f-type" name="type">
+            <option value="">{f.allTypes}</option>
+            <option value="appartement">{t.types.appartement}</option>
+            <option value="villa">{t.types.villa}</option>
+            <option value="terrain">{t.types.terrain}</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="f-budget">{f.budget}</label>
+          <select class="field" id="f-budget" name="budget">
+            <option value="">{f.noLimit}</option>
+            {budgets.map((b) => <option value={b}>{fcfa(b, lang)}</option>)}
+          </select>
+        </div>
+        <button type="reset" class="btn btn-outline js-only">{f.reset}</button>
+      </fieldset>
+    </form>
+
+    <p
+      class="mt-8 font-semibold"
+      aria-live="polite"
+      data-count
+      data-one={t.programmes.countOne}
+      data-other={t.programmes.countOther}
+    >
+      {countText(programmes.length)}
+    </p>
+
+    <div class="mt-6 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      {programmes.map((p) => <ProgrammeCard lang={lang} programme={p} heading="h2" />)}
+    </div>
+
+    <div data-empty hidden class=" border border-dashed border-brume-300 px-6 py-14 text-center">
+      <p class="titre text-2xl">{t.programmes.emptyTitle}</p>
+      <p class="mx-auto mt-3 max-w-md text-encre-600">{t.programmes.emptyText}</p>
+      <button type="button" class="btn btn-primary mt-6" data-reset>{f.reset}</button>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-filters]');
+  const count = document.querySelector<HTMLElement>('[data-count]');
+  const empty = document.querySelector<HTMLElement>('[data-empty]');
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-programme]'));
+
+  if (form && count && empty) {
+    const fields = ['statut', 'quartier', 'type', 'budget'] as const;
+    const control = (name: string) => form.elements.namedItem(name) as HTMLSelectElement;
+
+    const apply = () => {
+      const value = Object.fromEntries(fields.map((name) => [name, control(name).value]));
+      let shown = 0;
+      for (const card of cards) {
+        const d = card.dataset;
+        const match =
+          (!value.statut || d.statut === value.statut) &&
+          (!value.quartier || d.quartier === value.quartier) &&
+          (!value.type || (d.types ?? '').split(' ').includes(value.type)) &&
+          (!value.budget || Number(d.prix) <= Number(value.budget));
+        card.hidden = !match;
+        if (match) shown++;
+      }
+      const template = (shown === 1 ? count.dataset.one : count.dataset.other) ?? '{n}';
+      count.textContent = template.replace('{n}', String(shown));
+      empty.hidden = shown > 0;
+
+      // Les filtres restent dans l'adresse : la recherche peut être partagée.
+      const query = new URLSearchParams(Object.entries(value).filter(([, v]) => v)).toString();
+      history.replaceState(null, '', query ? `?${query}` : location.pathname);
+    };
+
+    const params = new URLSearchParams(location.search);
+    for (const name of fields) {
+      const wanted = params.get(name);
+      if (wanted && Array.from(control(name).options).some((o) => o.value === wanted)) control(name).value = wanted;
+    }
+
+    form.addEventListener('change', apply);
+    form.addEventListener('reset', () => setTimeout(apply));
+    empty.querySelector('[data-reset]')?.addEventListener('click', () => form.reset());
+    apply();
+  }
+</script>

@@ -1,0 +1,97 @@
+[
+  {
+    "nom": "Résidence Akwa Nord",
+    "quartier": "Akwa",
+    "annee": 2024,
+    "nombre": 28,
+    "genre": "logements",
+    "programme": "residence-akwa-nord",
+    "image": "photo-a-remplacer-akwa-facade.jpg",
+    "alt": {
+      "fr": "Façade de la Résidence Akwa Nord en fin de journée",
+      "en": "Front of Résidence Akwa Nord at dusk"
+    },
+    "temoignage": {
+      "prenom": "Carine",
+      "accueil": true,
+      "fr": "Je vis à Lyon et j’ai tout suivi à distance. Chaque mois, je recevais les photos du chantier. À la remise des clés, l’appartement était conforme au plan.",
+      "en": "I live in Lyon and followed everything from a distance. Every month I received photos of the site. When I got the keys, the flat matched the plan."
+    }
+  },
+  {
+    "nom": "Les Terrasses de Makepe",
+    "quartier": "Makepe",
+    "annee": 2022,
+    "nombre": 48,
+    "genre": "logements",
+    "image": "photo-a-remplacer-realisation-makepe.jpg",
+    "alt": {
+      "fr": "Les deux immeubles des Terrasses de Makepe",
+      "en": "The two buildings of Les Terrasses de Makepe"
+    },
+    "temoignage": {
+      "prenom": "Serge",
+      "accueil": true,
+      "fr": "Le notaire nous a montré le titre foncier avant la signature. C’est ce qui nous a décidés. Nous avons emménagé à la date prévue.",
+      "en": "The notary showed us the land title before we signed. That is what made up our minds. We moved in on the planned date."
+    }
+  },
+  {
+    "nom": "Lotissement Les Flamboyants",
+    "quartier": "Logpom",
+    "annee": 2021,
+    "nombre": 96,
+    "genre": "lots",
+    "image": "photo-a-remplacer-realisation-flamboyants.jpg",
+    "alt": {
+      "fr": "Vue d’ensemble du lotissement Les Flamboyants, aujourd’hui bâti",
+      "en": "Overview of the Les Flamboyants estate, now built up"
+    },
+    "temoignage": {
+      "prenom": "Brigitte",
+      "fr": "J’ai payé mon terrain en douze mensualités. Mon titre foncier m’a été remis au dernier versement, comme prévu.",
+      "en": "I paid for my plot in twelve monthly instalments. My land title was handed over with the last payment, as agreed."
+    }
+  },
+  {
+    "nom": "Résidence Les Manguiers",
+    "quartier": "Kotto",
+    "annee": 2019,
+    "nombre": 64,
+    "genre": "logements",
+    "image": "photo-a-remplacer-realisation-manguiers.jpg",
+    "alt": {
+      "fr": "Résidence Les Manguiers, deux immeubles entourés d’arbres",
+      "en": "Résidence Les Manguiers, two buildings surrounded by trees"
+    },
+    "temoignage": {
+      "prenom": "Emmanuel",
+      "fr": "Sept ans après, l’immeuble est bien entretenu et le groupe électrogène fonctionne. On sent que c’était pensé pour durer.",
+      "en": "Seven years on, the building is well kept and the generator works. You can tell it was built to last."
+    }
+  },
+  {
+    "nom": "Les Villas de Logbessou",
+    "quartier": "Logbessou",
+    "annee": 2018,
+    "nombre": 24,
+    "genre": "villas",
+    "image": "photo-a-remplacer-realisation-logbessou.jpg",
+    "alt": {
+      "fr": "Deux villas des Villas de Logbessou",
+      "en": "Two of the villas at Les Villas de Logbessou"
+    }
+  },
+  {
+    "nom": "Résidence Deido Rive",
+    "quartier": "Deido",
+    "annee": 2016,
+    "nombre": 80,
+    "genre": "logements",
+    "image": "photo-a-remplacer-realisation-deido.jpg",
+    "alt": {
+      "fr": "Résidence Deido Rive, au bord du Wouri",
+      "en": "Résidence Deido Rive, on the banks of the Wouri"
+    }
+  }
+]

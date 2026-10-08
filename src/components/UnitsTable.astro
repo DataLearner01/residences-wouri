@@ -1,0 +1,227 @@
+---
+// Tableau des unités : un tableau classique sur grand écran, une fiche par unité sur mobile.
+import simple from '@iconify-json/simple-icons/icons.json';
+import { fill, tr, useT, type Lang } from '../i18n';
+import { area, eur, fcfa, waLink } from '../lib/format';
+import type { Programme } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  programme: Programme;
+}
+
+const { lang, programme: p } = Astro.props;
+const t = useT(lang);
+const cols = t.programme.cols;
+const whatsappIcon = (simple.icons as Record<string, { body: string }>).whatsapp.body;
+// Par défaut, on ne montre que les unités disponibles (s'il y en a).
+const filtered = p.disponibles > 0;
+---
+
+<div data-units>
+  {/* Le logo WhatsApp est défini une fois, puis réutilisé sur chaque ligne (page plus légère). */}
+  <svg width="0" height="0" class="absolute" aria-hidden="true" focusable="false">
+    <symbol id="icone-whatsapp" viewBox="0 0 24 24" set:html={whatsappIcon} />
+  </svg>
+  {
+    filtered && (
+      <label class="js-only mb-5 inline-flex cursor-pointer items-center gap-2.5 font-medium">
+        <input type="checkbox" data-only-available checked class="h-5 w-5 accent-encre" />
+        {t.programme.onlyAvailable}
+      </label>
+    )
+  }
+
+  <table class:list={['units', filtered && 'only-available']} role="table">
+    <caption class="sr-only">{t.programme.units} : {p.nom}</caption>
+    <thead role="rowgroup">
+      <tr role="row">
+        <th scope="col" role="columnheader">{cols.ref}</th>
+        <th scope="col" role="columnheader">{cols.type}</th>
+        <th scope="col" role="columnheader">{cols.area}</th>
+        <th scope="col" role="columnheader">{cols.level}</th>
+        <th scope="col" role="columnheader">{cols.price}</th>
+        <th scope="col" role="columnheader">{cols.status}</th>
+        <th scope="col" role="columnheader">{cols.action}</th>
+      </tr>
+    </thead>
+    <tbody role="rowgroup">
+      {
+        p.unites.map((u) => (
+          <tr id={`u-${u.ref}`} data-statut={u.statut} role="row">
+            <th scope="row" role="rowheader" class="c-ref">
+              {u.ref}
+            </th>
+            <td role="cell" class="c-type">
+              {t.unitTypes[u.type]}
+            </td>
+            <td role="cell" class="c-area">
+              {area(u.surface, lang)}
+            </td>
+            <td role="cell" class="c-level">
+              {tr(u.niveau, lang)}
+            </td>
+            <td role="cell" class="c-price">
+              <span class="font-semibold">{fcfa(u.prix, lang)}</span>
+              <span class="block text-sm text-encre-600">≈ {eur(u.prix, lang)}</span>
+            </td>
+            <td role="cell" class="c-status">
+              <span class="inline-flex items-center gap-2 whitespace-nowrap">
+                <span class={`dot dot-${u.statut}`} />
+                {t.unitStatus[u.statut]}
+              </span>
+            </td>
+            <td role="cell" class="c-action">
+              {u.statut === 'disponible' && (
+                <a
+                  class="unit-wa"
+                  href={waLink(fill(t.wa.msg.unit, { nom: p.nom, ref: u.ref }))}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={fill(t.programme.askAria, { ref: u.ref })}
+                >
+                  <svg width="16" height="16" aria-hidden="true" focusable="false">
+                    <use href="#icone-whatsapp" />
+                  </svg>
+                  {t.programme.ask}
+                </a>
+              )}
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <p class="mt-4 text-sm text-encre-600">{t.programme.unitsNote}</p>
+</div>
+
+<style>
+  .units {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  .units th,
+  .units td {
+    padding: 0.8rem 0.75rem 0.8rem 0;
+    text-align: left;
+    vertical-align: top;
+  }
+  .units thead th {
+    border-bottom: 1.5px solid var(--color-encre);
+    color: var(--color-encre-600);
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .units tbody tr {
+    border-bottom: 1px solid var(--color-brume-300);
+    scroll-margin-top: 7rem;
+  }
+  .units tbody th {
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .units tr[data-statut='vendu'] {
+    color: var(--color-encre-600);
+  }
+  .units tr:target {
+    background: var(--color-brume);
+    outline: 2px solid var(--color-or);
+  }
+  .c-price {
+    white-space: nowrap;
+  }
+  .unit-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.5rem;
+    padding: 0.35rem 0.95rem;
+    border-radius: 999px;
+    background: var(--color-whatsapp);
+    color: var(--color-encre);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  .unit-wa:hover {
+    background: #1fbd5a;
+  }
+  /* Filtre « disponibles seulement » : actif uniquement quand JavaScript fonctionne. */
+  :global(.js) .units.only-available tbody tr:not([data-statut='disponible']) {
+    display: none;
+  }
+
+  @media (max-width: 47.99rem) {
+    .units thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    .units,
+    .units tbody {
+      display: block;
+    }
+    .units tbody tr {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.2rem 1rem;
+      padding: 0.95rem 0;
+    }
+    .units tbody th,
+    .units tbody td {
+      display: block;
+      padding: 0;
+    }
+    .c-ref {
+      grid-area: 1 / 1;
+    }
+    .c-status {
+      grid-area: 1 / 2;
+      justify-self: end;
+    }
+    .c-type {
+      grid-area: 2 / 1 / 3 / 3;
+    }
+    .c-level {
+      grid-area: 3 / 1;
+    }
+    .c-area {
+      grid-area: 3 / 2;
+      justify-self: end;
+    }
+    .c-price {
+      grid-area: 4 / 1;
+      margin-top: 0.35rem;
+    }
+    .c-action {
+      grid-area: 4 / 2;
+      align-self: end;
+      justify-self: end;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-units]').forEach((box) => {
+    const toggle = box.querySelector<HTMLInputElement>('[data-only-available]');
+    const table = box.querySelector<HTMLTableElement>('table');
+    if (!toggle || !table) return;
+
+    toggle.addEventListener('change', () => table.classList.toggle('only-available', toggle.checked));
+
+    // Un clic sur le plan de masse peut viser une unité masquée par le filtre : on la révèle.
+    const reveal = () => {
+      if (!location.hash.startsWith('#u-')) return;
+      const row = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (!row || !table.contains(row) || row.dataset.statut === 'disponible') return;
+      toggle.checked = false;
+      table.classList.remove('only-available');
+      row.scrollIntoView({ block: 'center' });
+    };
+    window.addEventListener('hashchange', reveal);
+    reveal();
+  });
+</script>

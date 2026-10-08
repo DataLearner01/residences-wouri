@@ -1,0 +1,153 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import { site } from '../config/site';
+import { href, langs, ogLocales, useT, type Lang, type RouteKey } from '../i18n';
+import fontUrl from '../assets/fonts/host-grotesk-latin-wght-normal.woff2?url';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Adresse de cette page dans chaque langue (bascule FR/EN et balises hreflang). */
+  alternates: Record<Lang, string>;
+  /** Message WhatsApp pré-rempli, propre à la page. */
+  waMessage: string;
+  current?: RouteKey;
+  /** Image de partage : chemin absolu depuis la racine du site. */
+  image?: string;
+  /** Données structurées schema.org propres à la page. */
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const {
+  lang,
+  title,
+  description,
+  alternates,
+  waMessage,
+  current,
+  image = '/og-default.jpg',
+  schema = [],
+  noindex = false,
+} = Astro.props;
+
+const t = useT(lang);
+const abs = (path: string) => new URL(path, Astro.site).href;
+const canonical = abs(alternates[lang]);
+
+const organisation = {
+  '@context': 'https://schema.org',
+  '@type': 'RealEstateAgent',
+  '@id': abs('/#organisation'),
+  name: site.name,
+  legalName: site.legalName,
+  slogan: t.common.baseline,
+  description: t.home.metaDescription,
+  url: abs(href(lang, 'home')),
+  logo: abs('/favicon.svg'),
+  image: abs('/og-default.jpg'),
+  telephone: `+${site.whatsapp.number}`,
+  email: site.email,
+  foundingDate: String(site.foundedYear),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: `${site.address.street}, ${site.address.district}`,
+    addressLocality: site.address.city,
+    addressRegion: site.address.region,
+    addressCountry: site.address.country,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
+  areaServed: { '@type': 'City', name: site.address.city },
+  openingHoursSpecification: site.hours.map((slot) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: slot.days,
+    opens: slot.opens,
+    closes: slot.closes,
+  })),
+};
+
+const jsonLd = (data: unknown) => JSON.stringify(data).replace(/</g, '\\u003c');
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    {langs.map((l) => <link rel="alternate" hreflang={l} href={abs(alternates[l])} />)}
+    <link rel="alternate" hreflang="x-default" href={abs(alternates.fr)} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={abs(image)} />
+    <meta property="og:locale" content={ogLocales[lang]} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin />
+
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+    <script type="application/ld+json" set:html={jsonLd(organisation)} />
+    {schema.map((item) => <script type="application/ld+json" set:html={jsonLd(item)} />)}
+  </head>
+  <body>
+    <a
+      href="#contenu"
+      class="sr-only z-[60] rounded-full bg-encre px-5 py-3 font-medium text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+    >
+      {t.common.skip}
+    </a>
+    <Header lang={lang} alternates={alternates} current={current} waMessage={waMessage} />
+    <main id="contenu" tabindex="-1" class="outline-none">
+      <slot />
+    </main>
+    <Footer lang={lang} waMessage={waMessage} />
+    <WhatsAppFloat lang={lang} message={waMessage} />
+
+    <script>
+      import '../scripts/pointeur';
+    </script>
+
+    <script is:inline>
+      // Les barres d'avancement se remplissent quand elles entrent à l'écran.
+      (function () {
+        var items = document.querySelectorAll('[data-reveal]');
+        var show = function (el) {
+          el.classList.add('is-visible');
+        };
+        if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          items.forEach(show);
+          return;
+        }
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                show(entry.target);
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px' }
+        );
+        items.forEach(function (el) {
+          observer.observe(el);
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { useT, type Lang } from '../i18n';
+import { getArticles } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  alternates: Record<Lang, string>;
+}
+
+const { lang, alternates } = Astro.props;
+const t = useT(lang);
+const articles = await getArticles(lang);
+---
+
+<Base
+  lang={lang}
+  title={t.news.metaTitle}
+  description={t.news.metaDescription}
+  alternates={alternates}
+  waMessage={t.wa.msg.news}
+  current="news"
+>
+  <PageHead title={t.news.title} intro={t.news.intro} />
+
+  <section class="container-page section">
+    <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+      {articles.map((article) => <ArticleCard lang={lang} article={article} />)}
+    </div>
+  </section>
+</Base>
